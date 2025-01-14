@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url("https://drive.google.com/thumbnail?id=1dkjM0Z8UH9Imdp0fRbE4zlf93HslqCYk&sz=s4000"); /* Replace with your image URL */
+        background-size: cover; /* Cover the entire page */
+        background-position: center; /* Center the image */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        color: white; /* Change text color for visibility */
+      }
+      .login-container {
+        background: rgba(255, 255, 255, 0.8); /* White with transparency */
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        width: 300px;
+        text-align: center;
+      }
+      h2 {
+        margin-bottom: 20px;
+        color: #333; /* Dark color for heading */
+      }
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+      }
+      input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+      .error {
+        color: red;
+        font-size: 0.9em;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="data-form">
+      <label for="email">rating:</label
+      ><input type="text" name="entry.116796238" value="" /><br />
+      <label for="email">review:</label
+      ><input type="text" name="entry.655895325" value="" /><br />
+      <label for="email">title:</label
+      ><input type="text" name="entry.810139425" value="" /><br />
+      <label for="email">pages:</label
+      ><input type="text" name="entry.1359624669" value="" /><br />
+      <label for="email">type:</label
+      ><input type="text" name="entry.441008873" value="" /><br />
+      <label for="email">price:</label
+      ><input type="text" name="entry.548983119" value="" /><br />
+      <button type="submit">Submit</button>
+    </form>
+    <script>
+        document.getElementById('data-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const url = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSeS2etTBIQLwffjGaBiMd5gYORGB2hTB-6DhQTZY1lKIlYK6w/formResponse'; // Replace with your form action URL
+
+            fetch(url, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            })
+            .then(response => {
+                document.getElementById('status').textContent = 'Form submitted successfully!';
+            })
+            .catch(error => {
+                console.error('Error submitting form:', error);
+                document.getElementById('status').textContent = 'Error submitting form.';
+            });
+        });
+    </script>
+  </body>
+</html>
+
+
