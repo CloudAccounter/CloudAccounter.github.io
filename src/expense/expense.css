@@ -1,0 +1,35 @@
+.form-expense {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: auto;
+}
+
+.common-class-expense {
+  width: 100%; /* Ensure all fields have consistent width */
+  box-sizing: border-box; /* Include padding and border in width */
+  margin-top: 5px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+
+/* input,
+select,
+textarea,
+button */

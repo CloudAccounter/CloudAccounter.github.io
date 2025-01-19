@@ -17,21 +17,21 @@ const mainRoutes = {
       },
     ],
   },
-  transaction:{
-    pages: [["src/transaction/transaction.html", "main-content"]],
+  expense: {
+    pages: [["src/expense/expense.html", "main-content"]],
     head: [
       {
         tag: "link",
-        props: [{ href: "src/transaction/transaction.css" }, { rel: "stylesheet" }],
+        props: [{ href: "src/expense/expense.css" }, { rel: "stylesheet" }],
       },
     ],
     tail: [
       {
         tag: "script",
-        props: [{ type: "text/javascript" }, { src: "src/transaction/transaction.js" }],
+        props: [{ type: "text/javascript" }, { src: "src/expense/expense.js" }],
       },
-    ]
-  }
+    ],
+  },
 };
 
 let pageHistory = []; // Initialize an empty history stack
@@ -55,7 +55,9 @@ async function loadPage(page, id, state) {
       mainRoutes?.[page]?.head?.forEach((ref) => loadToHead(ref));
       mainRoutes?.[page]?.tail?.forEach((ref) => loadToTail(ref));
     } catch (error) {
-      document.getElementById(ref?.[1] || id).innerText = `Error: ${error.message}`;
+      document.getElementById(
+        ref?.[1] || id
+      ).innerText = `Error: ${error.message}`;
       console.error(error);
     }
   } else {
@@ -117,24 +119,31 @@ function loginCheck() {
   const userObject = storedData ? JSON.parse(storedData) : {};
   if (!userObject?.id) {
     localStorage.removeItem("user");
-    loadPage("transaction");
-    // loadPage("login");
+    loadPage("login");
   } else {
-    const lastPage = localStorage.getItem("lastPage") || "transaction"; // Default to 'transaction'
+    const lastPage = localStorage.getItem("lastPage") || "expense"; // Default to 'expense'
     if (mainRoutes?.[lastPage]) {
       if (lastPage === "login") {
-        loadPage("transaction"); // Fallback if lastPage is invalid
+        loadPage("expense"); // Fallback if lastPage is invalid
       } else {
         loadPage(lastPage);
       }
     } else {
-      loadPage("transaction"); // Fallback if lastPage is invalid
+      loadPage("expense"); // Fallback if lastPage is invalid
     }
   }
 }
 
-
 loginCheck();
+
+function logOutCheck() {
+  const storedData = localStorage.getItem("user");
+  const userObject = storedData ? JSON.parse(storedData) : {};
+  if (!userObject?.id) {
+    localStorage.removeItem("user");
+    loadPage("login");
+  }
+}
 
 function logout() {
   localStorage.removeItem("user");
@@ -149,9 +158,23 @@ function goBack() {
     if (mainRoutes?.[previousPage]) {
       loadPage(previousPage, "main-content");
     } else {
-      loadPage("transaction", "main-content"); // Fallback if the previous page is invalid
+      loadPage("expense", "main-content"); // Fallback if the previous page is invalid
     }
   } else {
     console.log("No previous page in history.");
   }
 }
+
+function toggleDropdown() {
+  const dropdown = document.getElementById("dropdown");
+  dropdown.classList.toggle("active");
+}
+
+// Optional: Close the dropdown when clicking outside
+document.addEventListener("click", function (event) {
+  const button = document.querySelector(".options-button");
+  const dropdown = document.getElementById("dropdown");
+  if (!button.contains(event.target)) {
+    dropdown.classList.remove("active");
+  }
+});
