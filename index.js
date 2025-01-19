@@ -93,6 +93,21 @@ const mainRoutes = {
       },
     ],
   },
+  transaction:{
+    pages: [["src/transaction/transaction.html", "main-content"]],
+    head: [
+      {
+        tag: "link",
+        props: [{ href: "src/transaction/transaction.css" }, { rel: "stylesheet" }],
+      },
+    ],
+    tail: [
+      {
+        tag: "script",
+        props: [{ type: "text/javascript" }, { src: "src/transaction/transaction.js" }],
+      },
+    ]
+  }
 };
 
 let pageHistory = []; // Initialize an empty history stack
@@ -178,18 +193,18 @@ function loginCheck() {
   const userObject = storedData ? JSON.parse(storedData) : {};
   if (!userObject?.id) {
     localStorage.removeItem("user");
-    loadPage("products");
+    loadPage("transaction");
     // loadPage("login");
   } else {
-    const lastPage = localStorage.getItem("lastPage") || "products"; // Default to 'products'
+    const lastPage = localStorage.getItem("lastPage") || "transaction"; // Default to 'transaction'
     if (mainRoutes?.[lastPage]) {
       if (lastPage === "login") {
-        loadPage("products"); // Fallback if lastPage is invalid
+        loadPage("transaction"); // Fallback if lastPage is invalid
       } else {
         loadPage(lastPage);
       }
     } else {
-      loadPage("products"); // Fallback if lastPage is invalid
+      loadPage("transaction"); // Fallback if lastPage is invalid
     }
   }
 }
@@ -210,7 +225,7 @@ function goBack() {
     if (mainRoutes?.[previousPage]) {
       loadPage(previousPage, "main-content");
     } else {
-      loadPage("products", "main-content"); // Fallback if the previous page is invalid
+      loadPage("transaction", "main-content"); // Fallback if the previous page is invalid
     }
   } else {
     console.log("No previous page in history.");

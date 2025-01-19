@@ -48,7 +48,7 @@ async function login(event) {
     errorMessage.textContent = "Please fill in both fields.";
     return;
   }
-  const SHEET_ID = "1X9MNBQpWpv8wlLJrmZ133TQ8REO9s1OHHiYS1_bzlvQ";
+  const SHEET_ID = "1piEdxdEJv8_vnKem-r1GP03cLG5tFM1M9ydwSTSx94A";
   const GID = "815312967";
   const QUERY = `SELECT D WHERE B="${username}"  AND C="${password}"`;
   const res = await readGsheetData(SHEET_ID, GID, QUERY);
@@ -65,15 +65,15 @@ async function login(event) {
     localStorage.setItem("user", JSON.stringify(user));
     // window.location.href = "/products";
     // loadPage("products", "main-content");
-    const lastPage = localStorage.getItem("lastPage") || "products"; // Default to 'products'
+    const lastPage = localStorage.getItem("lastPage") || "transaction"; // Default to 'transaction'
     if (mainRoutes?.[lastPage]) {
       if (lastPage === "login") {
-        loadPage("products"); // Fallback if lastPage is invalid
+        loadPage("transaction"); // Fallback if lastPage is invalid
       } else {
         loadPage(lastPage);
       }
     } else {
-      loadPage("products"); // Fallback if lastPage is invalid
+      loadPage("transaction"); // Fallback if lastPage is invalid
     }
   } else {
     errorMessage.textContent = "Invalid username or password.";
