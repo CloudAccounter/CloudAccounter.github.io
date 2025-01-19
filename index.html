@@ -79,9 +79,12 @@
         </div>
         <div class="dropdown-menu" id="dropdown">
           <button onclick="logout()" class="tabButton">Log Out</button>
+          <button onclick="loadPage('addAccount');" class="tabButton">Add Account</button>
+          <button onclick="loadPage('addExpense');" class="tabButton">Add Expense</button>
+          <button onclick="loadPage('income');" class="tabButton">Add income</button>
         </div>
       </div>
-      <a onclick="loadPage('expense');" class="logo"
+      <a onclick="loadPage('dashboard');" class="logo"
         ><img
           src="src/img/logo.png"
           alt="logo"
@@ -91,6 +94,7 @@
     </div>
     <div class="main-content" id="main-content"></div>
     <div id="login"></div>
+    <script type="text/javascript" src="main-routes.js"></script>
     <script type="text/javascript" src="index.js"></script>
   </body>
 </html>

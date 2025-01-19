@@ -1,16 +1,21 @@
-<h1>Add Expense</h1>
-<form id="add-expense-form" class="form-expense">
+<h1>Add Account</h1>
+<form id="add-account-form" class="form-class">
   <label for="date">Date</label>
   <input
-    class="common-class-expense"
+    class="common-class-form"
     type="date"
     id="date"
-    name="date"
+    name="entry.664582640"
     required
   />
 
   <label for="account">Account</label>
-  <select class="common-class-expense" id="account" name="account" required>
+  <select
+    class="common-class-form"
+    id="account"
+    name="entry.828597618"
+    required
+  >
     <option value="">Select Account</option>
     <option value="savings">Savings</option>
     <option value="credit">Credit</option>
@@ -18,7 +23,12 @@
   </select>
 
   <label for="category">Category</label>
-  <select class="common-class-expense" id="category" name="category" required>
+  <select
+    class="common-class-form"
+    id="category"
+    name="entry.272783202"
+    required
+  >
     <option value="">Select Category</option>
     <option value="income">Income</option>
     <option value="expense">Expense</option>
@@ -27,20 +37,22 @@
 
   <label for="amount">Amount</label>
   <input
-    class="common-class-expense"
+    class="common-class-form"
     type="number"
     id="amount"
-    name="amount"
+    name="entry.255091399"
     required
   />
 
   <label for="description">Description</label>
   <textarea
-    class="common-class-expense"
+    class="common-class-form"
     id="description"
-    name="description"
+    name="entry.1202901311"
     rows="3"
     placeholder="Optional"
   ></textarea>
-  <button class="common-class-expense submit-button" type="submit">Submit</button>
+  <button class="common-class-form submit-button" type="submit">
+    Submit
+  </button>
 </form>

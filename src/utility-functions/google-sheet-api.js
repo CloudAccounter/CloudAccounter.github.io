@@ -65,15 +65,15 @@ async function login(event) {
     localStorage.setItem("user", JSON.stringify(user));
     // window.location.href = "/products";
     // loadPage("products", "main-content");
-    const lastPage = localStorage.getItem("lastPage") || "expense"; // Default to 'expense'
+    const lastPage = localStorage.getItem("lastPage") || "dashboard"; // Default to 'dashboard'
     if (mainRoutes?.[lastPage]) {
       if (lastPage === "login") {
-        loadPage("expense"); // Fallback if lastPage is invalid
+        loadPage("dashboard"); // Fallback if lastPage is invalid
       } else {
         loadPage(lastPage);
       }
     } else {
-      loadPage("expense"); // Fallback if lastPage is invalid
+      loadPage("dashboard"); // Fallback if lastPage is invalid
     }
   } else {
     errorMessage.textContent = "Invalid username or password.";

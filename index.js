@@ -1,39 +1,3 @@
-const mainRoutes = {
-  login: {
-    pages: [["src/login/login.html", "main-content"]],
-    head: [
-      {
-        tag: "link",
-        props: [{ href: "src/login/login.css" }, { rel: "stylesheet" }],
-      },
-    ],
-    tail: [
-      {
-        tag: "script",
-        props: [
-          { type: "text/javascript" },
-          { src: "src/utility-functions/google-sheet-api.js" },
-        ],
-      },
-    ],
-  },
-  expense: {
-    pages: [["src/expense/expense.html", "main-content"]],
-    head: [
-      {
-        tag: "link",
-        props: [{ href: "src/expense/expense.css" }, { rel: "stylesheet" }],
-      },
-    ],
-    tail: [
-      {
-        tag: "script",
-        props: [{ type: "text/javascript" }, { src: "src/expense/expense.js" }],
-      },
-    ],
-  },
-};
-
 let pageHistory = []; // Initialize an empty history stack
 
 async function loadPage(page, id, state) {
@@ -121,15 +85,15 @@ function loginCheck() {
     localStorage.removeItem("user");
     loadPage("login");
   } else {
-    const lastPage = localStorage.getItem("lastPage") || "expense"; // Default to 'expense'
+    const lastPage = localStorage.getItem("lastPage") || "dashboard"; // Default to 'dashboard'
     if (mainRoutes?.[lastPage]) {
       if (lastPage === "login") {
-        loadPage("expense"); // Fallback if lastPage is invalid
+        loadPage("dashboard"); // Fallback if lastPage is invalid
       } else {
         loadPage(lastPage);
       }
     } else {
-      loadPage("expense"); // Fallback if lastPage is invalid
+      loadPage("dashboard"); // Fallback if lastPage is invalid
     }
   }
 }
@@ -158,7 +122,7 @@ function goBack() {
     if (mainRoutes?.[previousPage]) {
       loadPage(previousPage, "main-content");
     } else {
-      loadPage("expense", "main-content"); // Fallback if the previous page is invalid
+      loadPage("dashboard", "main-content"); // Fallback if the previous page is invalid
     }
   } else {
     console.log("No previous page in history.");
@@ -178,3 +142,21 @@ document.addEventListener("click", function (event) {
     dropdown.classList.remove("active");
   }
 });
+
+// Sample data for accounts, loans, and transactions
+const accountData = [
+  { name: "Personal Savings", balance: 5000, currency: "USD" },
+  { name: "Checking Account", balance: 1200, currency: "USD" },
+  { name: "Credit Card", balance: -300, currency: "USD" }
+];
+
+const loanData = [
+  { name: "Car Loan", remainingLoan: 8000, currency: "USD" },
+  { name: "Home Loan", remainingLoan: 150000, currency: "USD" }
+];
+
+const transactionData = [
+  { description: "Grocery Shopping", amount: -150, date: "2025-01-15" },
+  { description: "Salary Deposit", amount: 2500, date: "2025-01-10" },
+  { description: "Rent Payment", amount: -1200, date: "2025-01-05" }
+];
