@@ -1,7 +1,9 @@
 /* General Reset */
 body,
 html {
-  margin: 20px;
+  margin: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins";
@@ -253,4 +255,8 @@ html {
 }
 .fab:hover {
   background: #0056b3;
+}
+
+h1 {
+  text-align: center;
 }

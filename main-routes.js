@@ -35,8 +35,65 @@ const mainRoutes = {
       },
     ],
   },
+  transaction: {
+    pages: [["src/transaction/transaction.html", "main-content"]],
+    head: [
+      {
+        tag: "link",
+        props: [
+          { href: "src/transaction/transaction.css" },
+          { rel: "stylesheet" },
+        ],
+      },
+    ],
+    tail: [
+      {
+        tag: "script",
+        props: [
+          { type: "text/javascript" },
+          { src: "src/transaction/transaction.js" },
+        ],
+      },
+    ],
+  },
   addExpense: {
     pages: [["src/forms/addExpense/addExpense.html", "main-content"]],
+    head: [
+      {
+        tag: "link",
+        props: [{ href: "src/forms/forms.css" }, { rel: "stylesheet" }],
+      },
+    ],
+    tail: [
+      {
+        tag: "script",
+        props: [
+          { type: "text/javascript" },
+          { src: "src/forms/addExpense/addExpense.js" },
+        ],
+      },
+    ],
+  },
+  addIncome: {
+    pages: [["src/forms/addExpense/addIncome.html", "main-content"]],
+    head: [
+      {
+        tag: "link",
+        props: [{ href: "src/forms/forms.css" }, { rel: "stylesheet" }],
+      },
+    ],
+    tail: [
+      {
+        tag: "script",
+        props: [
+          { type: "text/javascript" },
+          { src: "src/forms/addExpense/addExpense.js" },
+        ],
+      },
+    ],
+  },
+  addTransfer: {
+    pages: [["src/forms/addExpense/addTransfer.html", "main-content"]],
     head: [
       {
         tag: "link",

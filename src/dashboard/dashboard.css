@@ -1,70 +1,74 @@
 /* General Dashboard Styles */
 #dashboard-container {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .dashboard-section {
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  /* background-color: #f9f9f9; */
+  border-radius: 10px;
+  padding: 10px;
+  /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
 }
 
 .dashboard-section h2 {
-    font-size: 1.6em;
-    margin-bottom: 20px;
-    color: #333;
+  font-size: 1.6em;
+  margin-bottom: 20px;
+  color: #333;
 }
 
-.dashboard-section .account-list, .dashboard-section .loan-list, .dashboard-section .transaction-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.dashboard-section .account-list,
+.dashboard-section .loan-list,
+.dashboard-section .transaction-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.dashboard-section .account-item, .dashboard-section .loan-item, .dashboard-section .transaction-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+.dashboard-section .account-item,
+.dashboard-section .loan-item,
+.dashboard-section .transaction-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  /* box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); */
 }
 
 .dashboard-section .account-item .account-name,
 .dashboard-section .loan-item .loan-name,
 .dashboard-section .transaction-item .transaction-description {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .dashboard-section .account-item .balance,
 .dashboard-section .loan-item .remaining-loan,
 .dashboard-section .transaction-item .amount {
-    color: #4CAF50;
-    font-size: 1.1em;
+  color: #4caf50;
+  font-size: 1.1em;
 }
 
 .dashboard-section .account-item .balance,
 .dashboard-section .loan-item .remaining-loan {
-    font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 .dashboard-section .transaction-item {
-    background-color: #f3f3f3;
+  /* background-color: #f3f3f3; */
 }
 
 /* For larger screens */
 @media (min-width: 768px) {
-    #dashboard-container {
-        flex-direction: row;
-        justify-content: space-between;
-    }
+  #dashboard-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 
-    .dashboard-section {
-        width: 48%;
-    }
+  .dashboard-section {
+    width: 48%;
+  }
 }

@@ -78,10 +78,25 @@
           <div class="dot"></div>
         </div>
         <div class="dropdown-menu" id="dropdown">
+          <button onclick="loadPage('dashboard');" class="tabButton">
+            Dashboard
+          </button>
+          <button onclick="loadPage('transaction');" class="tabButton">
+            Transactions
+          </button>
+          <button onclick="loadPage('addAccount');" class="tabButton">
+            Add Account
+          </button>
+          <button onclick="loadPage('addExpense');" class="tabButton">
+            Add Expense
+          </button>
+          <button onclick="loadPage('addIncome');" class="tabButton">
+            Add Income
+          </button>
+          <button onclick="loadPage('addTransfer');" class="tabButton">
+            Transfer
+          </button>
           <button onclick="logout()" class="tabButton">Log Out</button>
-          <button onclick="loadPage('addAccount');" class="tabButton">Add Account</button>
-          <button onclick="loadPage('addExpense');" class="tabButton">Add Expense</button>
-          <button onclick="loadPage('income');" class="tabButton">Add income</button>
         </div>
       </div>
       <a onclick="loadPage('dashboard');" class="logo"

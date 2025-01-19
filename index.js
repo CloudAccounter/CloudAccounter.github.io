@@ -147,16 +147,12 @@ document.addEventListener("click", function (event) {
 const accountData = [
   { name: "Personal Savings", balance: 5000, currency: "USD" },
   { name: "Checking Account", balance: 1200, currency: "USD" },
-  { name: "Credit Card", balance: -300, currency: "USD" }
+  { name: "Credit Card", balance: -300, currency: "USD" },
 ];
 
 const loanData = [
   { name: "Car Loan", remainingLoan: 8000, currency: "USD" },
-  { name: "Home Loan", remainingLoan: 150000, currency: "USD" }
+  { name: "Home Loan", remainingLoan: 150000, currency: "USD" },
 ];
 
-const transactionData = [
-  { description: "Grocery Shopping", amount: -150, date: "2025-01-15" },
-  { description: "Salary Deposit", amount: 2500, date: "2025-01-10" },
-  { description: "Rent Payment", amount: -1200, date: "2025-01-05" }
-];
+let transactionData = [];
