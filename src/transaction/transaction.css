@@ -54,7 +54,6 @@
 .transaction-section .account-item .balance,
 .transaction-section .loan-item .remaining-loan,
 .transaction-section .transaction-item .amount {
-  color: #4caf50;
   font-size: 1.1em;
   text-align: right;
 }
