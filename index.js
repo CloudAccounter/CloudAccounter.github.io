@@ -153,3 +153,13 @@ const loanData = [
 
 let transactionData = [];
 let accountList = [];
+let filter = {
+  DATE: "",
+};
+
+let datePicker = document.getElementById("datePicker");
+let prevButton = document.getElementById("prevDate");
+let nextButton = document.getElementById("nextDate");
+
+// Initialize date picker with today's date
+const today = new Date();

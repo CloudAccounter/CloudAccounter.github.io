@@ -1,6 +1,5 @@
 /* General Dashboard Styles */
 
-
 .transaction-section {
   /* background-color: #f9f9f9; */
   border-radius: 8px;
@@ -23,7 +22,7 @@
   gap: 10px;
 }
 
- .transaction-item {
+.transaction-item {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1vh;
@@ -38,9 +37,9 @@
 .transaction-section .transaction-item .transaction-description {
   font-weight: bold;
 }
-.transaction-account{
-    /* font-size: small; */
-    color: grey;
+.transaction-account {
+  /* font-size: small; */
+  color: grey;
 }
 
 .transaction-section .account-item .balance,
@@ -57,6 +56,39 @@
 
 .transaction-section .transaction-item {
   background-color: #f3f3f3;
+}
+
+.date-picker-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5vh;
+}
+
+button {
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  border-width: 0px;
+}
+
+input[type="date"] {
+  font-size: 18px;
+  padding: 5px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  border-width: 0px;
+  font-family: "Poppins";
+  text-align: center;
+  color: grey;
+}
+
+.transaction-no-item {
+  width: 100%;
+  text-align: center;
 }
 
 /* For larger screens */
