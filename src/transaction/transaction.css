@@ -1,24 +1,18 @@
 /* General Dashboard Styles */
-#transaction-container {
-  font-family: Arial, sans-serif;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
+
 
 .transaction-section {
   /* background-color: #f9f9f9; */
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 8px;
+  /* padding: 10px; */
+  max-width: 400px;
+  margin: auto;
   /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
 }
 
-.transaction-section h2 {
-  font-size: 1.6em;
-  margin-bottom: 20px;
-  color: #333;
+.transaction-section {
+  /* font-size: 14px; */
+  /* color: #333; */
 }
 
 .transaction-section .account-list,
@@ -29,9 +23,7 @@
   gap: 10px;
 }
 
-.transaction-section .account-item,
-.transaction-section .loan-item,
-.transaction-section .transaction-item {
+ .transaction-item {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1vh;
@@ -47,20 +39,20 @@
   font-weight: bold;
 }
 .transaction-account{
-    font-size: small;
+    /* font-size: small; */
     color: grey;
 }
 
 .transaction-section .account-item .balance,
 .transaction-section .loan-item .remaining-loan,
 .transaction-section .transaction-item .amount {
-  font-size: 1.1em;
+  /* font-size: 1.1em; */
   text-align: right;
 }
 
 .transaction-section .account-item .balance,
 .transaction-section .loan-item .remaining-loan {
-  font-size: 1.2em;
+  /* font-size: 1.2em; */
 }
 
 .transaction-section .transaction-item {

@@ -259,4 +259,11 @@ html {
 
 h1 {
   text-align: center;
+  font-size: 1.2em;
+  color: #333;
+}
+
+h2 {
+  font-size: 1.1em;
+  color: #333;
 }
