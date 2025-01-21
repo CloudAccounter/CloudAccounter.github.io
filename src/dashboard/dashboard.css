@@ -23,8 +23,10 @@
 .dashboard-section .loan-list,
 .dashboard-section .transaction-list {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  justify-content: space-between;
+  background-color: #c5ffd6;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .dashboard-section .account-item,
@@ -33,9 +35,8 @@
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  background-color: #fff;
-  border-radius: 5px;
-  /* box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); */
+  /* background-color: #ecfff2; */
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-section .account-item .account-name,

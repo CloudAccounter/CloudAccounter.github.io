@@ -21,9 +21,15 @@ async function loadAccountData() {
   ];
   const accountList = document.getElementById("account-balances");
   uniqueTypes.forEach((type) => {
-    const accountHeader = document.createElement("h2");
+    const totalBalance = accountData
+      ?.filter((account) => account?.ACCOUNT_TYPE === type)
+      .reduce((sum, account) => sum + account?.BALANCE, 0);
+    const accountHeader = document.createElement("div");
     accountHeader.classList.add("account-list");
-    accountHeader.innerHTML = type;
+    accountHeader.innerHTML = `
+            <span class="account-name">${type || ""}</span>
+            <span class="balance">${totalBalance || 0}</span>
+        `;
     const accountItems = document.createElement("div");
     accountData
       ?.filter((account) => account?.ACCOUNT_TYPE === type)
