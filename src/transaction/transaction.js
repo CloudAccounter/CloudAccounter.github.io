@@ -56,13 +56,13 @@ async function loadTransactionData() {
   transactionData = [];
   const SHEET_ID = "1piEdxdEJv8_vnKem-r1GP03cLG5tFM1M9ydwSTSx94A";
   const GID = "13882067";
-  const QUERY = `SELECT * ORDER BY B ASC, C DESC`;
+  const QUERY = `SELECT * ORDER BY B ASC, D DESC`;
   const res = await readGsheetData(SHEET_ID, GID, QUERY);
   const columns = [...res?.table?.cols];
   res?.table?.rows?.map((item) => {
     const transactionObject = {};
     columns?.map((header, i) => {
-      transactionObject[header?.label] = item?.c?.[i]?.v;
+      transactionObject[header?.label?.trim()] = item?.c?.[i]?.v;
       return "";
     });
     transactionData?.push(transactionObject);
@@ -72,21 +72,26 @@ async function loadTransactionData() {
   transactionData.forEach((transaction) => {
     const transactionItem = document.createElement("div");
     transactionItem.classList.add("transaction-item");
-
     transactionItem.innerHTML = `
-            <span class="transaction-account">${transaction?.ACCOUNT}</span>
+            <span class="transaction-account">
+              ${
+                transaction?.TO
+                  ? `${transaction?.ACCOUNT || ""} - ${transaction?.TO}`
+                  : `${transaction?.ACCOUNT || ""}`
+              }
+            </span>
 
             <span class="transaction-description">${
-              transaction?.TO
-                ? `TO ${transaction?.TO}`
-                : transaction?.DESCRIPTION || ""
+              transaction?.DESCRIPTION || ""
             }</span>
 
             <span class="amount" style="color:${
               transaction?.CATEGORY === "income" ? "green" : "red"
-            }">${transaction?.AMOUNT}</span>
+            }">${transaction?.AMOUNT || ""}</span>
             
-            <span class="transaction-account">${transaction?.CATEGORY}</span>
+            <span class="transaction-account">${
+              transaction?.CATEGORY || ""
+            }</span>
 
             <div style="color:grey; font-size:2vh;">${
               formatCustomDate(transaction?.DATE) || ""
