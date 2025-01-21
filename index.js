@@ -144,11 +144,7 @@ document.addEventListener("click", function (event) {
 });
 
 // Sample data for accounts, loans, and transactions
-const accountData = [
-  { name: "Personal Savings", balance: 5000, currency: "USD" },
-  { name: "Checking Account", balance: 1200, currency: "USD" },
-  { name: "Credit Card", balance: -300, currency: "USD" },
-];
+let accountData = [];
 
 const loanData = [
   { name: "Car Loan", remainingLoan: 8000, currency: "USD" },

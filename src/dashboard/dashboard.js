@@ -1,53 +1,44 @@
 // Function to load account data
-function loadAccountData() {
-  const accountList = document.getElementById("account-list");
-  accountData.forEach((account) => {
-    const accountItem = document.createElement("div");
-    accountItem.classList.add("account-item");
+async function loadAccountData() {
+  accountData = [];
+  const SHEET_ID = "1piEdxdEJv8_vnKem-r1GP03cLG5tFM1M9ydwSTSx94A";
+  const GID = "211994317";
+  const QUERY = `SELECT C,D,N ORDER BY D`;
+  const res = await readGsheetData(SHEET_ID, GID, QUERY);
+  const columns = [...res?.table?.cols];
+  res?.table?.rows?.map((item) => {
+    const accountObject = {};
+    columns?.map((header, i) => {
+      accountObject[header?.label] = item?.c?.[i]?.v;
+      return "";
+    });
+    accountData?.push(accountObject);
+    return "";
+  });
 
-    accountItem.innerHTML = `
-            <span class="account-name">${account.name}</span>
-            <span class="balance">${account.balance} ${account.currency}</span>
+  const uniqueTypes = [
+    ...new Set(accountData.map((account) => account.ACCOUNT_TYPE)),
+  ];
+  const accountList = document.getElementById("account-balances");
+  uniqueTypes.forEach((type) => {
+    const accountHeader = document.createElement("h2");
+    accountHeader.classList.add("account-list");
+    accountHeader.innerHTML = type;
+    const accountItems = document.createElement("div");
+    accountData
+      ?.filter((account) => account?.ACCOUNT_TYPE === type)
+      ?.forEach((account) => {
+        const accountItem = document.createElement("div");
+        accountItem.classList.add("account-item");
+        accountItem.innerHTML = `
+            <span class="account-name">${account?.ACCOUNT_NAME || ""}</span>
+            <span class="balance">${account?.BALANCE || 0}</span>
         `;
-    accountList.appendChild(accountItem);
+        accountItems.appendChild(accountItem);
+      });
+    accountList.appendChild(accountHeader);
+    accountList.appendChild(accountItems);
   });
 }
-
-// Function to load loan data
-function loadLoanData() {
-  const loanList = document.getElementById("loan-list");
-  loanData.forEach((loan) => {
-    const loanItem = document.createElement("div");
-    loanItem.classList.add("loan-item");
-
-    loanItem.innerHTML = `
-            <span class="loan-name">${loan.name}</span>
-            <span class="remaining-loan">${loan.remainingLoan} ${loan.currency}</span>
-        `;
-    loanList.appendChild(loanItem);
-  });
-}
-
-// Function to load transaction data
-function loadTransactionData() {
-  const transactionList = document.getElementById("transaction-list");
-  transactionData.forEach((transaction) => {
-    const transactionItem = document.createElement("div");
-    transactionItem.classList.add("transaction-item");
-
-    transactionItem.innerHTML = `
-            <span class="transaction-description">${transaction.description}</span>
-            <span class="amount">${transaction.amount} USD</span>
-            <span class="transaction-date">${transaction.date}</span>
-        `;
-    transactionList.appendChild(transactionItem);
-  });
-}
-
-// Initialize the dashboard page
-// document.addEventListener("DOMContentLoaded", () => {
 
 loadAccountData();
-loadLoanData();
-loadTransactionData();
-// });
