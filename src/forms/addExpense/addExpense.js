@@ -47,6 +47,14 @@ async function loadAccountData() {
     accountOption.innerHTML = `${acc?.ACCOUNT_NAME}`;
     accountOptionsElement.appendChild(accountOption);
   });
+
+  const accountToOptionsElement = document.getElementById("account_to");
+  accountList.forEach((acc) => {
+    const accountOption = document.createElement("option");
+    accountOption.value = `${acc?.ACCOUNT_NAME}`;
+    accountOption.innerHTML = `${acc?.ACCOUNT_NAME}`;
+    accountToOptionsElement.appendChild(accountOption);
+  });
 }
 
 loadAccountData();
