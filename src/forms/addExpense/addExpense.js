@@ -22,6 +22,75 @@ document
         console.error("Error submitting form:", error);
       });
   });
+function formatCustomDate(input) {
+  // Extract the values from the input string using a regular expression
+  const match = input?.match(/Date\((\d+),\s*(\d+),\s*(\d+)\)/);
+  let result = "";
+
+  if (!!match) {
+    // Destructure the extracted values into separate variables
+    const [_, year, month, day] = match.map(Number); // Convert to numbers
+
+    // Create a new Date object
+    const date = new Date(year, month, day);
+
+    // Format the date
+    const dayNumber = date.getDate();
+    const monthName = String(date.getMonth() + 1).padStart(2, "0"); // Get the short month name
+    const yearNumber = date.getFullYear();
+
+    result = `${yearNumber}-${monthName}-${dayNumber}`;
+  }
+  return result;
+}
+
+function formatCustomTime(input) {
+  // Extract the values from the input string using a regular expression
+  const match = input?.match(
+    /Date\((\d+),\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)/
+  );
+
+  let result = "";
+  if (!!match) {
+    // Destructure the extracted values into separate variables
+    const [_, year, month, day, hour, minute] = match.map(Number); // Convert to numbers
+
+    // Create a new Date object
+    const date = new Date(year, month, day, hour, minute);
+
+    // Format the time
+    let hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    // const period = hours >= 12 ? "PM" : "AM";
+
+    // Convert hours to 12-hour format
+    // hours = hours % 12 || 12;
+
+    // Pad minutes with leading zero if needed
+    // const formattedMinutes = minutes.toString().padStart(2, "0");
+
+    result = `${hours}:${minutes}`;
+  }
+
+  return result;
+}
+
+function singleFetchTransaction(transactionData) {
+  document.getElementById("id").value = transactionData?.ID || "";
+  document.getElementById("date").value = transactionData?.DATE
+    ? formatCustomDate(transactionData?.DATE)
+    : "";
+  document.getElementById("time").value = transactionData?.TIME
+    ? formatCustomTime(transactionData?.TIME)
+    : "";
+  document.getElementById("account").value = transactionData?.ACCOUNT || "";
+  document.getElementById("account_to").value = transactionData?.TO || "";
+  document.getElementById("category").value = transactionData?.CATEGORY || "";
+  document.getElementById("amount").value = transactionData?.AMOUNT || "";
+  document.getElementById("description").value =
+    transactionData?.DESCRIPTION || "";
+  document.getElementById("cancel").value = transactionData?.CANCEL || "";
+}
 
 // Function to load transaction data
 async function loadAccountData() {
@@ -55,6 +124,8 @@ async function loadAccountData() {
     accountOption.innerHTML = `${acc?.ACCOUNT_NAME}`;
     accountToOptionsElement.appendChild(accountOption);
   });
+
+  setTimeout(singleFetchTransaction(selectedTransaction), 1000);
 }
 
 loadAccountData();

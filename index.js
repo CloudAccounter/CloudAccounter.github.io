@@ -152,6 +152,7 @@ const loanData = [
 ];
 
 let transactionData = [];
+let selectedTransaction={};
 let accountList = [];
 let filter = {
   DATE: "",

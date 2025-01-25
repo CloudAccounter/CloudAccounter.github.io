@@ -1,12 +1,9 @@
- datePicker = document.getElementById("datePicker");
- prevButton = document.getElementById("prevDate");
- nextButton = document.getElementById("nextDate");
+datePicker = document.getElementById("datePicker");
+prevButton = document.getElementById("prevDate");
+nextButton = document.getElementById("nextDate");
 
-
-
-  datePicker.valueAsDate = today;
-  filter.DATE = today;
-
+datePicker.valueAsDate = today;
+filter.DATE = today;
 
 // Function to adjust the date
 function adjustDate(days) {
@@ -82,6 +79,11 @@ function formatDateToYYYYMMDD(date) {
   return `${year}-${month}-${day}`;
 }
 
+function capitalizeFirstLetter(word) {
+  if (!word) return ""; // Handle empty or invalid input
+  return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+}
+
 // Function to load transaction data
 async function loadTransactionData() {
   const { DATE } = filter;
@@ -108,6 +110,10 @@ async function loadTransactionData() {
   if (transactionData?.length) {
     transactionData.forEach((transaction) => {
       const transactionItem = document.createElement("div");
+      transactionItem.onclick = function () {
+        selectedTransaction={...transaction};
+        loadPage(`add${capitalizeFirstLetter  (transaction?.CATEGORY)}`);
+      };
       transactionItem.classList.add("transaction-item");
       transactionItem.innerHTML = `
             <span class="transaction-account">
