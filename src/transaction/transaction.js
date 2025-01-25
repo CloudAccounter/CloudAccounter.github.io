@@ -2,8 +2,8 @@ datePicker = document.getElementById("datePicker");
 prevButton = document.getElementById("prevDate");
 nextButton = document.getElementById("nextDate");
 
-datePicker.valueAsDate = today;
 filter.DATE = today;
+datePicker.valueAsDate = filter.DATE;
 
 // Function to adjust the date
 function adjustDate(days) {
@@ -111,8 +111,8 @@ async function loadTransactionData() {
     transactionData.forEach((transaction) => {
       const transactionItem = document.createElement("div");
       transactionItem.onclick = function () {
-        selectedTransaction={...transaction};
-        loadPage(`add${capitalizeFirstLetter  (transaction?.CATEGORY)}`);
+        selectedTransaction = { ...transaction };
+        loadPage(`add${capitalizeFirstLetter(transaction?.CATEGORY)}`);
       };
       transactionItem.classList.add("transaction-item");
       transactionItem.innerHTML = `
@@ -157,4 +157,4 @@ async function loadTransactionData() {
   }
 }
 
-loadTransactionData();
+setTimeout(loadTransactionData(), 1000);

@@ -20,6 +20,7 @@ async function loadAccountData() {
     ...new Set(accountData.map((account) => account.ACCOUNT_TYPE)),
   ];
   const accountList = document.getElementById("account-balances");
+  accountList.innerHTML = "";
   uniqueTypes.forEach((type) => {
     const totalBalance = accountData
       ?.filter((account) => account?.ACCOUNT_TYPE === type)

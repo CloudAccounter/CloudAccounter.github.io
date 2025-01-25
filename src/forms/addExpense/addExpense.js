@@ -76,20 +76,38 @@ function formatCustomTime(input) {
 }
 
 function singleFetchTransaction(transactionData) {
-  document.getElementById("id").value = transactionData?.ID || "";
-  document.getElementById("date").value = transactionData?.DATE
-    ? formatCustomDate(transactionData?.DATE)
-    : "";
-  document.getElementById("time").value = transactionData?.TIME
-    ? formatCustomTime(transactionData?.TIME)
-    : "";
-  document.getElementById("account").value = transactionData?.ACCOUNT || "";
-  document.getElementById("account_to").value = transactionData?.TO || "";
-  document.getElementById("category").value = transactionData?.CATEGORY || "";
-  document.getElementById("amount").value = transactionData?.AMOUNT || "";
-  document.getElementById("description").value =
-    transactionData?.DESCRIPTION || "";
-  document.getElementById("cancel").value = transactionData?.CANCEL || "";
+  if (transactionData?.ID) {
+    document.getElementById("id").value = transactionData?.ID;
+  }
+  if (transactionData?.DATE) {
+    document.getElementById("date").value = formatCustomDate(
+      transactionData?.DATE
+    );
+  }
+  if (transactionData?.TIME) {
+    document.getElementById("time").value = formatCustomTime(
+      transactionData?.TIME
+    );
+  }
+  if (transactionData?.ACCOUNT) {
+    document.getElementById("account").value = transactionData?.ACCOUNT;
+  }
+  if (transactionData?.TO) {
+    document.getElementById("account_to").value = transactionData?.TO;
+  }
+  if (transactionData?.CATEGORY) {
+    document.getElementById("category").value = transactionData?.CATEGORY;
+  }
+  if (transactionData?.AMOUNT) {
+    document.getElementById("amount").value = transactionData?.AMOUNT;
+  }
+  if (transactionData?.DESCRIPTION) {
+    document.getElementById("description").value = transactionData?.DESCRIPTION;
+  }
+  if (transactionData?.CANCEL) {
+    document.getElementById("cancel").value = transactionData?.CANCEL;
+  }
+  selectedTransaction = {};
 }
 
 // Function to load transaction data

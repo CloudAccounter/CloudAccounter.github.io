@@ -152,7 +152,7 @@ const loanData = [
 ];
 
 let transactionData = [];
-let selectedTransaction={};
+let selectedTransaction = {};
 let accountList = [];
 let filter = {
   DATE: "",
@@ -163,4 +163,7 @@ let prevButton = document.getElementById("prevDate");
 let nextButton = document.getElementById("nextDate");
 
 // Initialize date picker with today's date
-const today = new Date();
+let today = new Date();
+today = new Date(
+  Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
+); // Create UTC midnight
