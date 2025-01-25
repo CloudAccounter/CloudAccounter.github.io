@@ -88,10 +88,10 @@ async function loadTransactionData() {
 
   transactionData = [];
   const SHEET_ID = "1piEdxdEJv8_vnKem-r1GP03cLG5tFM1M9ydwSTSx94A";
-  const GID = "13882067";
-  const QUERY = `SELECT * WHERE C = date '${formatDateToYYYYMMDD(
+  const GID = "2044609807";
+  const QUERY = `SELECT * WHERE E = date '${formatDateToYYYYMMDD(
     DATE
-  )}' ORDER BY B ASC, D DESC`;
+  )}' ORDER BY E ASC, F DESC`;
   const res = await readGsheetData(SHEET_ID, GID, QUERY);
   const columns = [...res?.table?.cols];
   res?.table?.rows?.map((item) => {
