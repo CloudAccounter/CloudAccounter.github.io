@@ -157,4 +157,4 @@ async function loadTransactionData() {
   }
 }
 
-setTimeout(loadTransactionData(), 1000);
+loadTransactionData();
