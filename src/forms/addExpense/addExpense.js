@@ -17,6 +17,19 @@ function formSubmit(formData) {
     });
 }
 
+function removeKeyFromFormData(formData, keyToRemove) {
+  const newFormData = new FormData();
+
+  // Iterate over the original FormData and copy all keys except the one to remove
+  for (const [key, value] of formData.entries()) {
+    if (key !== keyToRemove) {
+      newFormData.append(key, value);
+    }
+  }
+
+  return newFormData;
+}
+
 document
   .getElementById("add-expense-form")
   .addEventListener("submit", function (event) {
@@ -25,9 +38,15 @@ document
     // Identify which button was clicked
     const clickedButton = event.submitter.id;
 
-    const formData = new FormData(this);
-    console.log("===", clickedButton);
-    // formSubmit(formData);
+    let formData = new FormData(this);
+    if (clickedButton === "submit-button") {
+      formSubmit(formData);
+    } else if (clickedButton === "delete-button") {
+      const cancelKey = "entry.10695379";
+      formData = removeKeyFromFormData(formData, cancelKey);
+      formData.append([cancelKey], "1");
+      formSubmit(formData);
+    }
   });
 
 function formatCustomDate(input) {
@@ -84,8 +103,8 @@ function formatCustomTime(input) {
 }
 
 function singleFetchTransaction(transactionData) {
-  if (transactionData?.ID) {
-    document.getElementById("id").value = transactionData?.ID;
+  if (transactionData?.AUTO_ID) {
+    document.getElementById("id").value = transactionData?.AUTO_ID;
   }
   if (transactionData?.DATE) {
     document.getElementById("date").value = formatCustomDate(
