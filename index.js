@@ -1,31 +1,32 @@
-let pageHistory = []; // Initialize an empty history stack
 
 async function loadPage(page, id, state) {
-  if (mainRoutes?.[page]?.pages) {
-    try {
-      // Push the current page onto the history stack before loading the new page
-      if (pageHistory[pageHistory.length - 1] !== page) {
-        pageHistory.push(page);
-      }
-      localStorage.setItem("lastPage", page); // Save the current page
-      // Clear previously loaded dynamic resources
-      removeDynamicResources();
-      // Fetch HTML content for the new page
-      mainRoutes?.[page]?.pages?.forEach((ref) =>
-        loadContent(ref?.[0], ref?.[1] || id)
-      );
+  if (logOutCheck(page)) {
+    if (mainRoutes?.[page]?.pages) {
+      try {
+        // Push the current page onto the history stack before loading the new page
+        if (pageHistory[pageHistory.length - 1] !== page) {
+          pageHistory.push(page);
+        }
+        localStorage.setItem("lastPage", page); // Save the current page
+        // Clear previously loaded dynamic resources
+        removeDynamicResources();
+        // Fetch HTML content for the new page
+        mainRoutes?.[page]?.pages?.forEach((ref) =>
+          loadContent(ref?.[0], ref?.[1] || id)
+        );
 
-      // Dynamically load new styles and scripts
-      mainRoutes?.[page]?.head?.forEach((ref) => loadToHead(ref));
-      mainRoutes?.[page]?.tail?.forEach((ref) => loadToTail(ref));
-    } catch (error) {
-      document.getElementById(
-        ref?.[1] || id
-      ).innerText = `Error: ${error.message}`;
-      console.error(error);
+        // Dynamically load new styles and scripts
+        mainRoutes?.[page]?.head?.forEach((ref) => loadToHead(ref));
+        mainRoutes?.[page]?.tail?.forEach((ref) => loadToTail(ref));
+      } catch (error) {
+        document.getElementById(
+          ref?.[1] || id
+        ).innerText = `Error: ${error.message}`;
+        console.error(error);
+      }
+    } else {
+      loadContent("", id);
     }
-  } else {
-    loadContent("", id);
   }
 }
 
@@ -83,8 +84,10 @@ function loginCheck() {
   const userObject = storedData ? JSON.parse(storedData) : {};
   if (!userObject?.id) {
     localStorage.removeItem("user");
+    document.getElementById("side-menu").classList.add("hide");
     loadPage("login");
   } else {
+    document.getElementById("side-menu").classList.remove("hide");
     const lastPage = localStorage.getItem("lastPage") || "dashboard"; // Default to 'dashboard'
     if (mainRoutes?.[lastPage]) {
       if (lastPage === "login") {
@@ -100,18 +103,23 @@ function loginCheck() {
 
 loginCheck();
 
-function logOutCheck() {
+function logOutCheck(page) {
   const storedData = localStorage.getItem("user");
   const userObject = storedData ? JSON.parse(storedData) : {};
+  let status = page === "login" ? true : false;
   if (!userObject?.id) {
     localStorage.removeItem("user");
-    loadPage("login");
+    document.getElementById("side-menu").classList.add("hide");
+  } else {
+    status = true;
   }
+  return status;
 }
 
 function logout() {
   localStorage.removeItem("user");
   localStorage.removeItem("lastPage"); // Clear last page data
+  document.getElementById("side-menu").classList.add("hide");
   loadPage("login", "main-content");
 }
 
@@ -143,27 +151,4 @@ document.addEventListener("click", function (event) {
   }
 });
 
-// Sample data for accounts, loans, and transactions
-let accountData = [];
 
-const loanData = [
-  { name: "Car Loan", remainingLoan: 8000, currency: "USD" },
-  { name: "Home Loan", remainingLoan: 150000, currency: "USD" },
-];
-
-let transactionData = [];
-let selectedTransaction = {};
-let accountList = [];
-let filter = {
-  DATE: "",
-};
-
-let datePicker = document.getElementById("datePicker");
-let prevButton = document.getElementById("prevDate");
-let nextButton = document.getElementById("nextDate");
-
-// Initialize date picker with today's date
-let today = new Date();
-today = new Date(
-  Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
-); // Create UTC midnight

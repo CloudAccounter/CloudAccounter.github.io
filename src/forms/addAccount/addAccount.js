@@ -1,4 +1,4 @@
-logOutCheck();
+// logOutCheck();
 
 document
   .getElementById("add-account-form")

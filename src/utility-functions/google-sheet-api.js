@@ -56,6 +56,7 @@ async function login(event) {
   // Access the desired data
   const customerId = res?.table?.rows?.[0]?.c?.[0]?.v; // Safely access the customerId
   if (customerId) {
+    document.getElementById("side-menu").classList.remove("hide");
     // alert("Login successful!");
     const user = {
       name: username,

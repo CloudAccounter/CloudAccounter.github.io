@@ -26,6 +26,12 @@
   cursor: pointer;
   font-weight: bold;
 }
-.submit-button:hover {
+.delete-button:hover .submit-button:hover {
   background-color: #0056b3;
+}
+
+.delete-button {
+  background-color: transparent;
+  border: 1px solid red;
+  color: red;
 }

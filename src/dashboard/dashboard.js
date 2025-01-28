@@ -1,4 +1,4 @@
-logOutCheck();
+// logOutCheck();
 
 // Function to load account data
 async function loadAccountData() {

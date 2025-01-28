@@ -1,4 +1,4 @@
-logOutCheck();
+// logOutCheck();
 
 datePicker = document.getElementById("datePicker");
 prevButton = document.getElementById("prevDate");

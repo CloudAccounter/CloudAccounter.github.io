@@ -1,4 +1,4 @@
-logOutCheck();
+// logOutCheck();
 function formSubmit(formData) {
   const url =
     "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdDz4tiAMwdTxeyfXsLAQbs7yLaISgoYIrwaTJ9dJIF1xLO4g/formResponse";
@@ -11,6 +11,7 @@ function formSubmit(formData) {
     .then((response) => {
       // showSnackbar1();
       document.getElementById("add-expense-form").reset();
+      setTimeout(goBack(), 500);
     })
     .catch((error) => {
       console.error("Error submitting form:", error);
@@ -39,12 +40,12 @@ document
     const clickedButton = event.submitter.id;
 
     let formData = new FormData(this);
-    if (clickedButton === "submit-button") {
-      formSubmit(formData);
-    } else if (clickedButton === "delete-button") {
+    if (clickedButton === "delete-button") {
       const cancelKey = "entry.10695379";
       formData = removeKeyFromFormData(formData, cancelKey);
       formData.append([cancelKey], "1");
+      formSubmit(formData);
+    } else {
       formSubmit(formData);
     }
   });
@@ -104,7 +105,10 @@ function formatCustomTime(input) {
 
 function singleFetchTransaction(transactionData) {
   if (transactionData?.AUTO_ID) {
+    document.getElementById("delete-button").classList.remove("hide");
     document.getElementById("id").value = transactionData?.AUTO_ID;
+  } else {
+    document.getElementById("delete-button").classList.add("hide");
   }
   if (transactionData?.DATE) {
     document.getElementById("date").value = formatCustomDate(
@@ -134,7 +138,7 @@ function singleFetchTransaction(transactionData) {
   if (transactionData?.CANCEL) {
     document.getElementById("cancel").value = transactionData?.CANCEL;
   }
-  selectedTransaction = {};
+  selectedTransaction = { ...defaultTransaction };
 }
 
 // Function to load transaction data
