@@ -38,6 +38,10 @@ async function loadAccountData() {
       ?.filter((account) => account?.ACCOUNT_TYPE === type)
       ?.forEach((account) => {
         const accountItem = document.createElement("div");
+        accountItem.onclick = function () {
+          selectedAccount = { ...account };
+          loadPage(`transaction`);
+        };
         accountItem.classList.add("account-item");
         accountItem.innerHTML = `
             <span class="account-name">${account?.ACCOUNT_NAME || ""}</span>

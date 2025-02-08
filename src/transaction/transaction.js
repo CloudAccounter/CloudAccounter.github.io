@@ -95,9 +95,15 @@ async function loadTransactionData() {
   transactionData = [];
   const SHEET_ID = "1piEdxdEJv8_vnKem-r1GP03cLG5tFM1M9ydwSTSx94A";
   const GID = "2044609807";
-  const QUERY = `SELECT * WHERE E = date '${formatDateToYYYYMMDD(
-    DATE
-  )}' AND (L IS NULL OR L != 1) ORDER BY E ASC, F DESC`;
+  let QUERY = `SELECT *`;
+
+  console.log("===", selectedAccount?.ACCOUNT_NAME);
+  if (selectedAccount?.ACCOUNT_NAME) {
+    QUERY = QUERY + ` WHERE G='${selectedAccount?.ACCOUNT_NAME}'`;
+  } else {
+    QUERY = QUERY + ` WHERE E = date '${formatDateToYYYYMMDD(DATE)}'`;
+  }
+  QUERY = QUERY + ` AND (L IS NULL OR L != 1) ORDER BY E ASC, F DESC`;
   const res = await readGsheetData(SHEET_ID, GID, QUERY);
   const columns = [...res?.table?.cols];
   res?.table?.rows?.map((item) => {
@@ -163,9 +169,9 @@ async function loadTransactionData() {
 
 loadTransactionData();
 
-const dropdownBtn = document.getElementById("periodDropdownBtn");
-const dropdownMenu = document.getElementById("periodDropdownMenu");
-const selectedValue = document.getElementById("periodSelectedValue");
+dropdownBtn = document.getElementById("periodDropdownBtn");
+dropdownMenu = document.getElementById("periodDropdownMenu");
+selectedValue = document.getElementById("periodSelectedValue");
 
 // Toggle dropdown menu visibility
 dropdownBtn.addEventListener("click", function () {

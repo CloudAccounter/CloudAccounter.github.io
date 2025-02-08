@@ -9,6 +9,7 @@ const loanData = [
 
 let transactionData = [];
 let selectedTransaction = {};
+let selectedAccount;
 let accountList = [];
 let filter = {
   DATE: "",
@@ -16,9 +17,13 @@ let filter = {
 let defaultTransaction = {};
 let today;
 
-let datePicker = document.getElementById("datePicker");
-let prevButton = document.getElementById("prevDate");
-let nextButton = document.getElementById("nextDate");
+let dropdownBtn;
+let dropdownMenu;
+let selectedValue;
+
+let datePicker;
+let prevButton;
+let nextButton;
 
 function getNewDateTime() {
   // Initialize date picker with today's date
