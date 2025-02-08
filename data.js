@@ -14,6 +14,7 @@ let filter = {
   DATE: "",
 };
 let defaultTransaction = {};
+let today;
 
 let datePicker = document.getElementById("datePicker");
 let prevButton = document.getElementById("prevDate");
@@ -21,7 +22,7 @@ let nextButton = document.getElementById("nextDate");
 
 function getNewDateTime() {
   // Initialize date picker with today's date
-  let today = new Date();
+  today = new Date();
 
   // Extract the year, month (0-based), and day
   const year = today.getFullYear();

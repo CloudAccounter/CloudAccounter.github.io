@@ -1,11 +1,25 @@
 <div class="transaction-section" id="recent-transactions">
   <h1>Transactions</h1>
   <div class="date-picker-container">
+    <div class="period-dropdown">
+      <button class="period-dropdown-btn" id="periodDropdownBtn">
+        period
+        <span class="period-dropdown-icon">▼</span>
+      </button>
+
+      <div class="period-dropdown-menu" id="periodDropdownMenu">
+        <a href="#" data-value="week">Week</a>
+        <a href="#" data-value="month">Month</a>
+        <a href="#" data-value="day">Day</a>
+      </div>
+    </div>
     <!-- Left arrow button -->
-    <button id="prevDate" title="Previous Date" class="incrementButton">-</button>
+    <button id="prevDate" title="Previous Date" class="incrementButton">
+      -
+    </button>
 
     <!-- Date Picker -->
-    <input type="date" id="datePicker" class="transaction-date"/>
+    <input type="date" id="datePicker" class="transaction-date" />
 
     <!-- Right arrow button -->
     <button id="nextDate" title="Next Date" class="incrementButton">+</button>

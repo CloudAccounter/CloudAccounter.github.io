@@ -162,3 +162,33 @@ async function loadTransactionData() {
 }
 
 loadTransactionData();
+
+const dropdownBtn = document.getElementById("periodDropdownBtn");
+const dropdownMenu = document.getElementById("periodDropdownMenu");
+const selectedValue = document.getElementById("periodSelectedValue");
+
+// Toggle dropdown menu visibility
+dropdownBtn.addEventListener("click", function () {
+  dropdownMenu.style.display =
+    dropdownMenu.style.display === "block" ? "none" : "block";
+});
+
+// Handle option selection
+dropdownMenu.querySelectorAll("a").forEach((item) => {
+  item.addEventListener("click", function (event) {
+    event.preventDefault();
+    dropdownBtn.innerHTML = `${this.dataset.value} <span class="period-dropdown-icon">▼</span>`;
+    selectedValue.textContent = this.dataset.value;
+    dropdownMenu.style.display = "none"; // Hide dropdown
+  });
+});
+
+// Hide dropdown if clicked outside
+document.addEventListener("click", function (event) {
+  if (
+    !dropdownBtn.contains(event.target) &&
+    !dropdownMenu.contains(event.target)
+  ) {
+    dropdownMenu.style.display = "none";
+  }
+});
