@@ -1,4 +1,9 @@
-// logOutCheck();
+
+
+
+getNewDateTime();
+
+
 function formSubmit(formData) {
   const url =
     "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdDz4tiAMwdTxeyfXsLAQbs7yLaISgoYIrwaTJ9dJIF1xLO4g/formResponse";
@@ -63,7 +68,7 @@ function formatCustomDate(input) {
     const date = new Date(year, month, day);
 
     // Format the date
-    const dayNumber = date.getDate();
+    const dayNumber = String(date.getDate()).padStart(2, "0");
     const monthName = String(date.getMonth() + 1).padStart(2, "0"); // Get the short month name
     const yearNumber = date.getFullYear();
 

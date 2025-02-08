@@ -13,34 +13,40 @@ let accountList = [];
 let filter = {
   DATE: "",
 };
+let defaultTransaction = {};
 
 let datePicker = document.getElementById("datePicker");
 let prevButton = document.getElementById("prevDate");
 let nextButton = document.getElementById("nextDate");
 
-// Initialize date picker with today's date
-let today = new Date();
+function getNewDateTime() {
+  // Initialize date picker with today's date
+  let today = new Date();
 
-// Extract the year, month (0-based), and day
-const year = today.getFullYear();
-const month = today.getMonth(); // 0-based (January = 0, February = 1, etc.)
-const day = today.getDate();
-const hours = today.getHours();
-const minutes = today.getMinutes();
-const seconds = today.getSeconds();
+  // Extract the year, month (0-based), and day
+  const year = today.getFullYear();
+  // const month = today.getMonth(); // 0-based (January = 0, February = 1, etc.)
+  const month = String(today.getMonth()).padStart(2, "0"); // Convert to 1-based month and add leading zero
+  const day = String(today.getDate()).padStart(2, "0"); // Add leading zero
 
-// Construct the string in the desired format
-const formattedDateTime = `Date(${year},${month},${day},${hours},${minutes},${seconds})`;
+  const hours = today.getHours();
+  const minutes = today.getMinutes();
+  const seconds = today.getSeconds();
 
-// Construct the string in the desired format
-const formattedDate = `Date(${year},${month},${day})`;
+  // Construct the string in the desired format
+  const formattedDateTime = `Date(${year},${month},${day},${hours},${minutes},${seconds})`;
 
-const defaultTransaction={
-  DATE: formattedDate, TIME: formattedDateTime
+  // Construct the string in the desired format
+  const formattedDate = `Date(${year},${month},${day})`;
+  defaultTransaction = { DATE: formattedDate, TIME: formattedDateTime };
+  selectedTransaction = { DATE: formattedDate, TIME: formattedDateTime };
+
+  today = new Date(
+    Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
+  ); // Create UTC midnight
+
+  return {
+    DATE: formattedDate,
+    TIME: formattedDateTime,
+  };
 }
-
-selectedTransaction = { DATE: formattedDate, TIME: formattedDateTime };
-
-today = new Date(
-  Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
-); // Create UTC midnight

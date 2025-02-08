@@ -1,5 +1,7 @@
 // logOutCheck();
 
+getNewDateTime();
+
 datePicker = document.getElementById("datePicker");
 prevButton = document.getElementById("prevDate");
 nextButton = document.getElementById("nextDate");

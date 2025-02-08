@@ -1,5 +1,7 @@
 // logOutCheck();
 
+getNewDateTime();
+
 document
   .getElementById("add-account-form")
   .addEventListener("submit", function (event) {
