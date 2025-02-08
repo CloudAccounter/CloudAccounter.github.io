@@ -1,4 +1,3 @@
-
 async function loadPage(page, id, state) {
   if (logOutCheck(page)) {
     if (mainRoutes?.[page]?.pages) {
@@ -150,5 +149,3 @@ document.addEventListener("click", function (event) {
     dropdown.classList.remove("active");
   }
 });
-
-

@@ -97,9 +97,9 @@ async function loadTransactionData() {
   const GID = "2044609807";
   let QUERY = `SELECT *`;
 
-  console.log("===", selectedAccount?.ACCOUNT_NAME);
   if (selectedAccount?.ACCOUNT_NAME) {
-    QUERY = QUERY + ` WHERE G='${selectedAccount?.ACCOUNT_NAME}'`;
+    document.getElementById("transaction-filter").style.display='none';
+    QUERY = QUERY + ` WHERE G='${selectedAccount?.ACCOUNT_NAME}' OR H='${selectedAccount?.ACCOUNT_NAME}'`;
   } else {
     QUERY = QUERY + ` WHERE E = date '${formatDateToYYYYMMDD(DATE)}'`;
   }
