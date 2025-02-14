@@ -1,7 +1,4 @@
-// logOutCheck();
-
-getNewDateTime();
-
+defaultTransaction = { ...getNewDateTime() };
 datePicker = document.getElementById("datePicker");
 prevButton = document.getElementById("prevDate");
 nextButton = document.getElementById("nextDate");
@@ -103,7 +100,7 @@ async function loadTransactionData() {
   } else {
     QUERY = QUERY + ` WHERE E = date '${formatDateToYYYYMMDD(DATE)}'`;
   }
-  QUERY = QUERY + ` AND (L IS NULL OR L != 1) ORDER BY E ASC, F DESC`;
+  QUERY = QUERY + ` AND (L IS NULL OR L != 1) ORDER BY E DESC, F DESC`;
   const res = await readGsheetData(SHEET_ID, GID, QUERY);
   const columns = [...res?.table?.cols];
   res?.table?.rows?.map((item) => {

@@ -1,8 +1,4 @@
-
-
-
-getNewDateTime();
-
+defaultTransaction = { ...getNewDateTime() };
 
 function formSubmit(formData) {
   const url =

@@ -44,8 +44,6 @@ function getNewDateTime() {
 
   // Construct the string in the desired format
   const formattedDate = `Date(${year},${month},${day})`;
-  defaultTransaction = { DATE: formattedDate, TIME: formattedDateTime };
-  selectedTransaction = { DATE: formattedDate, TIME: formattedDateTime };
 
   today = new Date(
     Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
