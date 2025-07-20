@@ -31,7 +31,7 @@ async function loadAccountData() {
     accountHeader.classList.add("account-list");
     accountHeader.innerHTML = `
             <span class="account-name">${type || ""}</span>
-            <span class="balance">${totalBalance || 0}</span>
+            <span class="balance">${formatNumber(totalBalance) || 0}</span>
         `;
     const accountItems = document.createElement("div");
     accountData
@@ -45,7 +45,7 @@ async function loadAccountData() {
         accountItem.classList.add("account-item");
         accountItem.innerHTML = `
             <span class="account-name">${account?.ACCOUNT_NAME || ""}</span>
-            <span class="balance">${account?.BALANCE || 0}</span>
+            <span class="balance">${formatNumber(account?.BALANCE) || 0}</span>
         `;
         accountItems.appendChild(accountItem);
       });

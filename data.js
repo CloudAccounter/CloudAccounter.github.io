@@ -8,6 +8,10 @@ const loanData = [
 ];
 
 let transactionData = [];
+let currentOffset = 0;
+let isLoading = false;
+let isEndOfData = false;
+const pageSize = 20;
 let selectedTransaction = {};
 let selectedAccount;
 let accountList = [];
@@ -54,3 +58,5 @@ function getNewDateTime() {
     TIME: formattedDateTime,
   };
 }
+
+const amountDecimalPlaces = 2; // Number of decimal places for amounts

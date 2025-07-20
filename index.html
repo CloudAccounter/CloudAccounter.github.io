@@ -1,119 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-      body {
-        margin: 0px;
-      }
-    </style>
-    <script
-      type="text/javascript"
-      src="src/utility-functions/google-sheet-api.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://code.jquery.com/jquery-3.6.4.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
-    ></script>
-    <link
-      href="https://fonts.googleapis.com/css?family=Lato&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
-      rel="stylesheet"
-    />
-    <link href="index.css" rel="stylesheet" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins"
-      rel="stylesheet"
-    />
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus Jakarta+Sans" />
-    <link href="https://fonts.googleapis.com/css2?family= AnekKannada" />
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist" />
-    <link
-      href="'https://fonts.googleapis.com/css?family=Manrope' rel='stylesheet'>"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=DM Sans"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Urbanist"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Manrope"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div
-      style="
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0px;
+    }
+  </style>
+  <script type="text/javascript" src="src/utility-functions/google-sheet-api.js"></script>
+  <script type="text/javascript" src="src/utility-functions/utilities.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Lato&amp;display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" rel="stylesheet" />
+  <link href="index.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus Jakarta+Sans" />
+  <link href="https://fonts.googleapis.com/css2?family= AnekKannada" />
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist" />
+  <link href="'https://fonts.googleapis.com/css?family=Manrope' rel='stylesheet'>" />
+  <link href="https://fonts.googleapis.com/css?family=DM Sans" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Manrope" rel="stylesheet" />
+</head>
+
+<body>
+  <div style="
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         direction: rtl;
         text-align: center;
         align-items: center;
-      "
-    >
-      <div id="side-menu" class="options-button" onclick="toggleDropdown()">
-        <div class="dots">
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-        </div>
-        <div class="dropdown-menu" id="dropdown">
-          <button onclick="loadPage('dashboard');" class="tabButton">
-            Dashboard
-          </button>
-          <button
-            onclick="loadPage('transaction');selectedAccount = {};"
-            class="tabButton"
-          >
-            Transactions
-          </button>
-          <button onclick="loadPage('addAccount');" class="tabButton">
-            Add Account
-          </button>
-          <button onclick="loadPage('addExpense');" class="tabButton">
-            Add Expense
-          </button>
-          <button onclick="loadPage('addIncome');" class="tabButton">
-            Add Income
-          </button>
-          <button onclick="loadPage('addTransfer');" class="tabButton">
-            Transfer
-          </button>
-          <button onclick="logout()" class="tabButton">Log Out</button>
-        </div>
+      ">
+    <div id="side-menu" class="options-button" onclick="toggleDropdown()">
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
       </div>
-      <a onclick="loadPage('dashboard');" class="logo"
-        ><img
-          src="src/img/logo.png"
-          alt="logo"
-          width="50px"
-          style="vertical-align: bottom"
-      /></a>
+      <div class="dropdown-menu" id="dropdown">
+        <button onclick="loadPage('dashboard');" class="tabButton">
+          Dashboard
+        </button>
+        <button onclick="loadPage('transaction');selectedAccount = {};" class="tabButton">
+          Transactions
+        </button>
+        <button onclick="loadPage('addAccount');" class="tabButton">
+          Add Account
+        </button>
+        <button onclick="loadPage('addExpense');" class="tabButton">
+          Add Expense
+        </button>
+        <button onclick="loadPage('addIncome');" class="tabButton">
+          Add Income
+        </button>
+        <button onclick="loadPage('addTransfer');" class="tabButton">
+          Transfer
+        </button>
+        <button onclick="logout()" class="tabButton">Log Out</button>
+      </div>
     </div>
-    <div class="main-content" id="main-content"></div>
-    <div id="login"></div>
-    <script type="text/javascript" src="data.js"></script>
-    <script type="text/javascript" src="main-routes.js"></script>
-    <script type="text/javascript" src="index.js"></script>
-  </body>
+    <a onclick="loadPage('dashboard');" class="logo"><img src="src/img/logo.png" alt="logo" width="50px"
+        style="vertical-align: bottom" /></a>
+  </div>
+  <div class="main-content" id="main-content"></div>
+  <div id="login"></div>
+  <script type="text/javascript" src="data.js"></script>
+  <script type="text/javascript" src="main-routes.js"></script>
+  <script type="text/javascript" src="index.js"></script>
+</body>
+
 </html>
