@@ -90,5 +90,5 @@ function adjustDate(days) {
   currentDate.setDate(currentDate.getDate() + days);
   datePicker.valueAsDate = currentDate;
   filter.DATE = currentDate;
-  loadTransactionData();
+  loadTransactionData('FORCE');
 }

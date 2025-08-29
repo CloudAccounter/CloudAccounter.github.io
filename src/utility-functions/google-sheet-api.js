@@ -50,8 +50,20 @@ async function login(event) {
   }
   const SHEET_ID = "1piEdxdEJv8_vnKem-r1GP03cLG5tFM1M9ydwSTSx94A";
   const GID = "815312967";
-  const QUERY = `SELECT D WHERE B="${username}"  AND C="${password}"`;
+  const QUERY = `SELECT * WHERE A="${username}"  AND B="${password}"`;
   const res = await readGsheetData(SHEET_ID, GID, QUERY);
+
+  const columns = [...res?.table?.cols];
+  const rows = res?.table?.rows;
+  const tableData=[];
+  rows.forEach((item) => {
+    const tableObject = {};
+    columns.forEach((header, i) => {
+      tableObject[header?.label?.trim()] = item?.c?.[i]?.v;
+    });
+    tableData.push(tableObject);
+  });
+  console.log('===',res, rows, columns, tableData)
 
   // Access the desired data
   const customerId = res?.table?.rows?.[0]?.c?.[0]?.v; // Safely access the customerId
@@ -61,7 +73,7 @@ async function login(event) {
     const user = {
       name: username,
       id: customerId,
-      time: new Date(),
+      time: new Date()
     };
     localStorage.setItem("user", JSON.stringify(user));
     // window.location.href = "/products";

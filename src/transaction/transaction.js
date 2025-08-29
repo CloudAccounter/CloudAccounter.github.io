@@ -7,19 +7,24 @@ filter.DATE = today;
 datePicker.valueAsDate = filter.DATE;
 
 // Event listeners for buttons
+datePicker.addEventListener("change", () => adjustDate(0));
 prevButton.addEventListener("click", () => adjustDate(-1)); // Go to previous day
 nextButton.addEventListener("click", () => adjustDate(1)); // Go to next day
 
 isEndOfData = false;
 currentOffset = 0;
 // Function to load transaction data
-async function loadTransactionData() {
-  if (isLoading || isEndOfData) return;
+
+
+async function loadTransactionData(TYPE) {
+  const transactionList = document.getElementById("transaction-list");
+  if (TYPE !== "FORCE" && (isLoading || isEndOfData)) return;
+  if (TYPE === "FORCE") {transactionList.innerHTML = ""; currentOffset = 0;}
   isLoading = true;
   const { DATE } = filter;
 
   transactionData = [];
-  const SHEET_ID = "1piEdxdEJv8_vnKem-r1GP03cLG5tFM1M9ydwSTSx94A";
+  const SHEET_ID = JSON.parse(localStorage.getItem("user"))?.id;
   const GID = "2044609807";
   let QUERY = `SELECT *`;
   if (selectedAccount?.ACCOUNT_NAME) {
