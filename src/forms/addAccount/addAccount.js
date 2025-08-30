@@ -5,8 +5,9 @@ document
     event.preventDefault();
 
     const formData = new FormData(this);
+    const formID=JSON.parse(localStorage.getItem("user"))?.ACC_MASTER_FORM
     const url =
-      "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfFOxIIzl94hY1kwUTJqhriFM-tFTkJGgxgSIWs06akXPTswQ/formResponse";
+      `https://docs.google.com/forms/u/0/d/e/${formID}/formResponse`;
     // Replace with your form action URL
     fetch(url, {
       method: "POST",

@@ -78,7 +78,8 @@
             event.preventDefault();
 
             const formData = new FormData(this);
-            const url = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSeS2etTBIQLwffjGaBiMd5gYORGB2hTB-6DhQTZY1lKIlYK6w/formResponse'; // Replace with your form action URL
+            const formID = "1FAIpQLSeS2etTBIQLwffjGaBiMd5gYORGB2hTB-6DhQTZY1lKIlYK6w";
+            const url = `https://docs.google.com/forms/u/0/d/e/${formID}/formResponse`;
 
             fetch(url, {
                 method: 'POST',

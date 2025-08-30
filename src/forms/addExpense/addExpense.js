@@ -1,8 +1,8 @@
 defaultTransaction = { ...getNewDateTime() };
 
 function formSubmit(formData) {
-  const url =
-    "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdDz4tiAMwdTxeyfXsLAQbs7yLaISgoYIrwaTJ9dJIF1xLO4g/formResponse";
+  const formID = JSON.parse(localStorage.getItem("user"))?.TRANSACTIONS_FORM;
+  const url = `https://docs.google.com/forms/u/0/d/e/${formID}/formResponse`;
   // Replace with your form action URL
   fetch(url, {
     method: "POST",
@@ -146,7 +146,7 @@ function singleFetchTransaction(transactionData) {
 async function loadAccountData() {
   accountList = [];
   const SHEET_ID = JSON.parse(localStorage.getItem("user"))?.id;
-  const GID = "779938159";
+  const GID = JSON.parse(localStorage.getItem("user"))?.ACC_MASTER;
   const QUERY = `SELECT * `;
   const res = await readGsheetData(SHEET_ID, GID, QUERY);
   const columns = [...res?.table?.cols];

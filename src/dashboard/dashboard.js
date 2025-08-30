@@ -4,7 +4,7 @@
 async function loadAccountData() {
   accountData = [];
   const SHEET_ID=JSON.parse(localStorage.getItem("user"))?.id;
-  const GID = "211994317";
+  const GID = JSON.parse(localStorage.getItem("user"))?.SP_ACC_BALANCES;
   const QUERY = `SELECT C,D,N ORDER BY D`;
   const res = await readGsheetData(SHEET_ID, GID, QUERY);
   const columns = [...res?.table?.cols];

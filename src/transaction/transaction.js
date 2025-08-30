@@ -25,7 +25,7 @@ async function loadTransactionData(TYPE) {
 
   transactionData = [];
   const SHEET_ID = JSON.parse(localStorage.getItem("user"))?.id;
-  const GID = "2044609807";
+  const GID = JSON.parse(localStorage.getItem("user"))?.VW_TRANSACTIONS;
   let QUERY = `SELECT *`;
   if (selectedAccount?.ACCOUNT_NAME) {
     document.getElementById("transaction-filter").style.display = "none";
