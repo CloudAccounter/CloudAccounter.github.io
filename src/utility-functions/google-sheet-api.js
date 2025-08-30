@@ -49,28 +49,29 @@ async function login(event) {
     return;
   }
   const SHEET_ID = "1piEdxdEJv8_vnKem-r1GP03cLG5tFM1M9ydwSTSx94A";
-  const GID = "815312967";
+  const GID = "1619426406";
   const QUERY = `SELECT * WHERE A="${username}"  AND B="${password}"`;
   const res = await readGsheetData(SHEET_ID, GID, QUERY);
 
   const columns = [...res?.table?.cols];
   const rows = res?.table?.rows;
   const tableData=[];
+  const tableObject = {};
   rows.forEach((item) => {
-    const tableObject = {};
     columns.forEach((header, i) => {
       tableObject[header?.label?.trim()] = item?.c?.[i]?.v;
     });
-    tableData.push(tableObject);
   });
-  console.log('===',res, rows, columns, tableData)
+  tableData.push(tableObject);
 
   // Access the desired data
-  const customerId = res?.table?.rows?.[0]?.c?.[0]?.v; // Safely access the customerId
+  const customerId = tableData?.[0]?.SHEET_ID; // Safely access the customerId
   if (customerId) {
     document.getElementById("side-menu").classList.remove("hide");
     // alert("Login successful!");
     const user = {
+      ...tableData?.[0],
+      B:null,
       name: username,
       id: customerId,
       time: new Date()
