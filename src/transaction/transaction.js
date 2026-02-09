@@ -26,15 +26,16 @@ async function loadTransactionData(TYPE) {
   transactionData = [];
   const SHEET_ID = JSON.parse(localStorage.getItem("user"))?.id;
   const GID = JSON.parse(localStorage.getItem("user"))?.VW_TRANSACTIONS;
-  let QUERY = `SELECT *`;
+  let QUERY = `SELECT * WHERE 1=1`;
   if (selectedAccount?.ACCOUNT_NAME) {
-    document.getElementById("transaction-filter").style.display = "none";
+    // document.getElementById("transaction-filter").style.display = "none";
     QUERY =
       QUERY +
-      ` WHERE G='${selectedAccount?.ACCOUNT_NAME}' OR H='${selectedAccount?.ACCOUNT_NAME}'`;
-  } else {
-    QUERY = QUERY + ` WHERE E = date '${formatDateToYYYYMMDD(DATE)}'`;
-  }
+      ` AND G='${selectedAccount?.ACCOUNT_NAME}' OR H='${selectedAccount?.ACCOUNT_NAME}'`;
+  } 
+  // else {
+    // QUERY = QUERY + ` AND E = date '${formatDateToYYYYMMDD(DATE)}'`;
+  // }
   QUERY = QUERY + ` AND (L IS NULL OR L != 1) ORDER BY E DESC, F DESC`;
   QUERY += ` LIMIT ${pageSize} OFFSET ${currentOffset}`;
   const res = await readGsheetData(SHEET_ID, GID, QUERY);
