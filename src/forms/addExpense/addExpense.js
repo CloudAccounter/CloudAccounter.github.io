@@ -1,4 +1,5 @@
-defaultTransaction = { ...getNewDateTime() };
+defaultTransaction = {...getNewDateTime()};
+let isSubmitting = false;
 
 function formSubmit(formData) {
   const formID = JSON.parse(localStorage.getItem("user"))?.TRANSACTIONS_FORM;
@@ -12,10 +13,12 @@ function formSubmit(formData) {
     .then((response) => {
       // showSnackbar1();
       document.getElementById("add-expense-form").reset();
+      isSubmitting = false;
       setTimeout(goBack(), 500);
     })
     .catch((error) => {
       console.error("Error submitting form:", error);
+      isSubmitting = false;
     });
 }
 
@@ -36,6 +39,9 @@ document
   .getElementById("add-expense-form")
   .addEventListener("submit", function (event) {
     event.preventDefault();
+
+    if (isSubmitting) return;
+    isSubmitting = true;
 
     // Identify which button was clicked
     const clickedButton = event.submitter.id;
@@ -76,7 +82,7 @@ function formatCustomDate(input) {
 function formatCustomTime(input) {
   // Extract the values from the input string using a regular expression
   const match = input?.match(
-    /Date\((\d+),\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)/
+    /Date\((\d+),\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d+)\)/,
   );
 
   let result = "";
@@ -113,12 +119,12 @@ function singleFetchTransaction(transactionData) {
   }
   if (transactionData?.DATE) {
     document.getElementById("date").value = formatCustomDate(
-      transactionData?.DATE
+      transactionData?.DATE,
     );
   }
   if (transactionData?.TIME) {
     document.getElementById("time").value = formatCustomTime(
-      transactionData?.TIME
+      transactionData?.TIME,
     );
   }
   if (transactionData?.ACCOUNT) {
@@ -139,7 +145,7 @@ function singleFetchTransaction(transactionData) {
   if (transactionData?.CANCEL) {
     document.getElementById("cancel").value = transactionData?.CANCEL;
   }
-  selectedTransaction = { ...defaultTransaction };
+  selectedTransaction = {...defaultTransaction};
 }
 
 // Function to load transaction data
