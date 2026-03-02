@@ -19,18 +19,23 @@ if (!window.filter.DATE_FROM) {
   window.filter.DATE_FROM = new Date(today.getFullYear(), today.getMonth(), 1);
 }
 if (!window.filter.DATE_TO) {
-  window.filter.DATE_TO = new Date();
+  const today = new Date();
+  window.filter.DATE_TO = new Date(
+    today.getFullYear(),
+    today.getMonth() + 1,
+    0,
+  );
 }
 
-let ledgerDateFrom = document.getElementById("ledgerDateFrom");
-let ledgerDateTo = document.getElementById("ledgerDateTo");
+ledgerDateFrom = document.getElementById("ledgerDateFrom");
+ledgerDateTo = document.getElementById("ledgerDateTo");
+reloadLedgerDataBtn = document.getElementById("reloadLedgerData");
 
 if (ledgerDateFrom) {
   ledgerDateFrom.valueAsDate = filter.DATE_FROM;
   ledgerDateFrom.addEventListener("change", (e) => {
     if (e.target.value) {
       filter.DATE_FROM = new Date(e.target.value);
-      loadLedgerDataForPeriod();
     }
   });
 }
@@ -40,8 +45,13 @@ if (ledgerDateTo) {
   ledgerDateTo.addEventListener("change", (e) => {
     if (e.target.value) {
       filter.DATE_TO = new Date(e.target.value);
-      loadLedgerDataForPeriod();
     }
+  });
+}
+
+if (reloadLedgerDataBtn) {
+  reloadLedgerDataBtn.addEventListener("click", () => {
+    loadLedgerDataForPeriod();
   });
 }
 
