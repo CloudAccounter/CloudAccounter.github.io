@@ -107,12 +107,6 @@
           >
             Ledger Transactions
           </button> -->
-          <button onclick="loadPage('addAccount')" class="tabButton">
-            Add Account
-          </button>
-          <button onclick="loadPage('addLedger')" class="tabButton">
-            Add Ledger
-          </button>
           <button onclick="loadPage('addExpense')" class="tabButton">
             Add Expense
           </button>
@@ -122,10 +116,16 @@
           <button onclick="loadPage('addTransfer')" class="tabButton">
             Transfer
           </button>
+          <button onclick="loadPage('addAccount')" class="tabButton">
+            Add Account
+          </button>
+          <button onclick="loadPage('addLedger')" class="tabButton">
+            Add Ledger
+          </button>
           <button onclick="logout()" class="tabButton">Log Out</button>
         </div>
       </div>
-      <a onclick="loadPage('ledgerDashboard')" class="logo"
+      <a onclick="loadPage('ledgerSummary')" class="logo"
         ><img
           src="src/img/logo.png"
           alt="logo"

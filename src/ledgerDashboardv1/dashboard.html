@@ -1,0 +1,206 @@
+<div class="dashboard-wrapper">
+  <!-- Header -->
+  <header class="dashboard-header">
+    <div class="greeting-container">
+      <h1 class="greeting">Good Morning</h1>
+    </div>
+    <div class="header-controls">
+      <div class="month-selector">
+        <span id="current-month-display">April 2024</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <img
+        src="src/img/profile.png"
+        alt="Profile"
+        class="profile-pic"
+        id="profile-pic-ph"
+        onerror="
+          this.src = 'https://ui-avatars.com/api/?name=User&background=random'
+        "
+      />
+    </div>
+  </header>
+
+  <!-- Net Balance Card -->
+  <section class="net-balance-card">
+    <div class="card-content">
+      <h2>Net Balance</h2>
+      <h1 id="net-balance-amount">$0</h1>
+      <div class="balance-details">
+        <div class="detail-item">
+          <span>Income:</span>
+          <strong id="total-income-amount">$0</strong>
+          <i class="fas fa-arrow-up income-icon"></i>
+        </div>
+        <div class="detail-item">
+          <span>Expense:</span>
+          <strong id="total-expense-amount">$0</strong>
+          <i class="fas fa-arrow-down expense-icon"></i>
+        </div>
+      </div>
+    </div>
+    <div class="chart-background">
+      <!-- SVG line chart placeholder -->
+      <svg viewBox="0 0 100 30" preserveAspectRatio="none" class="bg-sparkline">
+        <path
+          d="M0,30 L0,25 L10,22 L20,26 L30,15 L40,18 L50,10 L60,14 L70,8 L80,12 L90,2 L100,0 L100,30 Z"
+          fill="rgba(255,255,255,0.1)"
+        ></path>
+        <path
+          d="M0,25 L10,22 L20,26 L30,15 L40,18 L50,10 L60,14 L70,8 L80,12 L90,2 L100,0"
+          fill="none"
+          stroke="rgba(255,255,255,0.4)"
+          stroke-width="0.5"
+        ></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Cash Flow -->
+  <section
+    class="widget-card"
+    onclick="
+      loadPage('transaction');
+      selectedAccount = {};
+    "
+  >
+    <div class="widget-header">
+      <h3>Cash Flow</h3>
+      <div class="dots"><i class="fas fa-ellipsis-h"></i></div>
+    </div>
+    <div class="cash-flow-content">
+      <div class="flow-row">
+        <span>Income</span>
+        <div class="progress-bar-container">
+          <div
+            class="progress-bar income-bar"
+            id="income-progress"
+            style="width: 0%"
+          ></div>
+        </div>
+        <strong id="cashflow-income">$0</strong>
+        <i class="fas fa-arrow-up income-icon"></i>
+      </div>
+      <div class="flow-row">
+        <span>Expense</span>
+        <div class="progress-bar-container">
+          <div
+            class="progress-bar expense-bar"
+            id="expense-progress"
+            style="width: 0%"
+          ></div>
+        </div>
+        <strong id="cashflow-expense">$0</strong>
+        <i class="fas fa-arrow-down expense-icon"></i>
+      </div>
+    </div>
+    <div class="insight-banner success-insight" id="cashflow-insight">
+      <i class="fas fa-check-circle"></i>
+      <span>Loading...</span>
+    </div>
+  </section>
+
+  <!-- Two Column Layout: Accounts & Top Expenses -->
+  <div class="two-col-grid">
+    <!-- Accounts -->
+    <section class="widget-card">
+      <div class="widget-header">
+        <h3><i class="fas fa-folder account-icon-header"></i> Accounts</h3>
+        <div class="dots"><i class="fas fa-ellipsis-h"></i></div>
+      </div>
+      <div class="accounts-list" id="dashboard-accounts-list">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- Top Expenses -->
+    <section class="widget-card">
+      <div class="widget-header">
+        <h3>Top Expenses</h3>
+        <div class="dots"><i class="fas fa-ellipsis-h"></i></div>
+      </div>
+      <div class="expenses-list" id="dashboard-expenses-list">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+  </div>
+
+  <!-- Insights -->
+  <section class="widget-card insight-widget">
+    <div class="widget-header">
+      <h3><i class="fas fa-lightbulb insight-icon-header"></i> Insights</h3>
+      <div class="dots"><i class="fas fa-ellipsis-h"></i></div>
+    </div>
+    <div class="insight-banner warning-insight" id="dynamic-insight">
+      <i class="fas fa-exclamation-triangle"></i>
+      <span>Loading insights...</span>
+      <i class="fas fa-chevron-right ml-auto"></i>
+    </div>
+  </section>
+
+  <!-- Recent Transactions -->
+  <section class="widget-card">
+    <div class="widget-header">
+      <h3>Recent Transactions</h3>
+      <div
+        class="dots"
+        onclick="
+          loadPage('transaction');
+          selectedAccount = {};
+        "
+      >
+        <i class="fas fa-ellipsis-h"></i>
+      </div>
+    </div>
+    <div class="transactions-list" id="dashboard-transactions-list">
+      <!-- Rendered via JS -->
+    </div>
+  </section>
+
+  <!-- Balance Trend -->
+  <section class="widget-card">
+    <div class="widget-header">
+      <h3>Balance Trend</h3>
+      <div class="dots"><i class="fas fa-ellipsis-h"></i></div>
+    </div>
+    <div class="trend-chart-container" id="dashboard-trend-chart">
+      <!-- Use a simple SVG -->
+      <svg
+        viewBox="0 0 100 40"
+        class="trend-sparkline"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <linearGradient id="trendGradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#4e73df" stop-opacity="0.3"></stop>
+            <stop offset="100%" stop-color="#4e73df" stop-opacity="0"></stop>
+          </linearGradient>
+        </defs>
+        <path
+          d="M0,40 L0,30 L15,31 L30,28 L45,25 L60,28 L75,20 L90,15 L100,5 L100,40 Z"
+          fill="url(#trendGradient)"
+        ></path>
+        <path
+          d="M0,30 L15,31 L30,28 L45,25 L60,28 L75,20 L90,15 L100,5"
+          fill="none"
+          class="trend-line"
+        ></path>
+        <circle cx="0" cy="30" r="1.5" class="trend-dot"></circle>
+        <circle cx="15" cy="31" r="1.5" class="trend-dot"></circle>
+        <circle cx="30" cy="28" r="1.5" class="trend-dot"></circle>
+        <circle cx="45" cy="25" r="1.5" class="trend-dot"></circle>
+        <circle cx="60" cy="28" r="1.5" class="trend-dot"></circle>
+        <circle cx="75" cy="20" r="1.5" class="trend-dot"></circle>
+        <circle cx="90" cy="15" r="1.5" class="trend-dot"></circle>
+        <circle cx="100" cy="5" r="1.5" class="trend-dot"></circle>
+      </svg>
+      <div class="trend-grid">
+        <div class="grid-line"></div>
+        <div class="grid-line"></div>
+        <div class="grid-line"></div>
+      </div>
+    </div>
+  </section>
+  <div style="height: 80px"></div>
+  <!-- Spacing for bottom nav if any -->
+</div>

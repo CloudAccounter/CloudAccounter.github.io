@@ -11,16 +11,15 @@ async function loadPage(page, id, state) {
         removeDynamicResources();
         // Fetch HTML content for the new page
         mainRoutes?.[page]?.pages?.forEach((ref) =>
-          loadContent(ref?.[0], ref?.[1] || id)
+          loadContent(ref?.[0], ref?.[1] || id),
         );
 
         // Dynamically load new styles and scripts
         mainRoutes?.[page]?.head?.forEach((ref) => loadToHead(ref));
         mainRoutes?.[page]?.tail?.forEach((ref) => loadToTail(ref));
       } catch (error) {
-        document.getElementById(
-          ref?.[1] || id
-        ).innerText = `Error: ${error.message}`;
+        document.getElementById(ref?.[1] || id).innerText =
+          `Error: ${error.message}`;
         console.error(error);
       }
     } else {
@@ -87,15 +86,15 @@ function loginCheck() {
     loadPage("login");
   } else {
     document.getElementById("side-menu").classList.remove("hide");
-    const lastPage = localStorage.getItem("lastPage") || "ledgerDashboard"; // Default to 'ledgerDashboard'
+    const lastPage = localStorage.getItem("lastPage") || "ledgerSummary"; // Default to 'ledgerSummary'
     if (mainRoutes?.[lastPage]) {
       if (lastPage === "login") {
-        loadPage("ledgerDashboard"); // Fallback if lastPage is invalid
+        loadPage("ledgerSummary"); // Fallback if lastPage is invalid
       } else {
         loadPage(lastPage);
       }
     } else {
-      loadPage("ledgerDashboard"); // Fallback if lastPage is invalid
+      loadPage("ledgerSummary"); // Fallback if lastPage is invalid
     }
   }
 }
@@ -129,7 +128,7 @@ function goBack() {
     if (mainRoutes?.[previousPage]) {
       loadPage(previousPage, "main-content");
     } else {
-      loadPage("ledgerDashboard", "main-content"); // Fallback if the previous page is invalid
+      loadPage("ledgerSummary", "main-content"); // Fallback if the previous page is invalid
     }
   } else {
     console.log("No previous page in history.");
