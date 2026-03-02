@@ -83,6 +83,13 @@ const mainRoutes = {
     head: [
       {
         tag: "link",
+        props: [
+          {href: "src/ledgerDashboardv1/dashboard.css"},
+          {rel: "stylesheet"},
+        ],
+      },
+      {
+        tag: "link",
         props: [{href: "src/forms/forms.css"}, {rel: "stylesheet"}],
       },
     ],
@@ -99,6 +106,13 @@ const mainRoutes = {
   addIncome: {
     pages: [["src/forms/addExpense/addIncome.html", "main-content"]],
     head: [
+      {
+        tag: "link",
+        props: [
+          {href: "src/ledgerDashboardv1/dashboard.css"},
+          {rel: "stylesheet"},
+        ],
+      },
       {
         tag: "link",
         props: [{href: "src/forms/forms.css"}, {rel: "stylesheet"}],
@@ -119,6 +133,13 @@ const mainRoutes = {
     head: [
       {
         tag: "link",
+        props: [
+          {href: "src/ledgerDashboardv1/dashboard.css"},
+          {rel: "stylesheet"},
+        ],
+      },
+      {
+        tag: "link",
         props: [{href: "src/forms/forms.css"}, {rel: "stylesheet"}],
       },
     ],
@@ -137,6 +158,13 @@ const mainRoutes = {
     head: [
       {
         tag: "link",
+        props: [
+          {href: "src/ledgerDashboardv1/dashboard.css"},
+          {rel: "stylesheet"},
+        ],
+      },
+      {
+        tag: "link",
         props: [{href: "src/forms/forms.css"}, {rel: "stylesheet"}],
       },
     ],
@@ -153,6 +181,13 @@ const mainRoutes = {
   addLedger: {
     pages: [["src/forms/addLedger/addLedger.html", "main-content"]],
     head: [
+      {
+        tag: "link",
+        props: [
+          {href: "src/ledgerDashboardv1/dashboard.css"},
+          {rel: "stylesheet"},
+        ],
+      },
       {
         tag: "link",
         props: [{href: "src/forms/forms.css"}, {rel: "stylesheet"}],

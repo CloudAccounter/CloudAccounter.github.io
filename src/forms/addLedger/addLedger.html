@@ -1,29 +1,52 @@
-<h1>Add Ledger</h1>
-<form id="add-ledger-form" class="form-class">
-  <label for="account-name">Account Name</label>
-  <input
-    class="common-class-form"
-    id="amount"
-    name="entry.2112556947"
-    required
-  />
-  <label for="account-type">Account Type</label>
-  <input
-    class="common-class-form"
-    id="account"
-    name="entry.1399475836"
-    value="LEDGER"
-    readonly
-    required
-  />
+<div class="dashboard-wrapper">
+  <header
+    class="dashboard-header"
+    style="justify-content: center; text-align: center"
+  >
+    <div class="greeting-container" style="width: 100%">
+      <h1 class="greeting">Add Ledger</h1>
+    </div>
+  </header>
 
-  <label for="description">Description</label>
-  <textarea
-    class="common-class-form"
-    id="description"
-    name="entry.1480488943"
-    rows="3"
-    placeholder="Optional"
-  ></textarea>
-  <button class="common-class-form submit-button" type="submit">Submit</button>
-</form>
+  <form id="add-ledger-form" class="form-class">
+    <label for="account-name">Account Name</label>
+    <input
+      class="common-class-form"
+      id="amount"
+      name="entry.2112556947"
+      placeholder="e.g. Food, Electricity"
+      required
+    />
+    <label for="account-type">Account Type</label>
+    <input
+      class="common-class-form"
+      id="account"
+      name="entry.1399475836"
+      value="LEDGER"
+      readonly
+      style="background-color: #e9ecef; cursor: not-allowed; color: #6c757d"
+      required
+    />
+
+    <label for="description">Description</label>
+    <textarea
+      class="common-class-form"
+      id="description"
+      name="entry.1480488943"
+      rows="3"
+      placeholder="Optional notes"
+    ></textarea>
+
+    <div id="button-div">
+      <button
+        class="submit-button"
+        type="submit"
+        style="background-color: #3b82f6"
+        onmouseover="this.style.backgroundColor = '#2563eb'"
+        onmouseout="this.style.backgroundColor = '#3b82f6'"
+      >
+        Save Ledger
+      </button>
+    </div>
+  </form>
+</div>

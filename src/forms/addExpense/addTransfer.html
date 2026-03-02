@@ -1,92 +1,107 @@
-<h1>Transfer</h1>
-<form id="add-expense-form" class="form-class">
-  <label for="date">Date</label>
-  <input
-    class="common-class-form"
-    type="date"
-    id="date"
-    name="entry.664582640"
-    required
-  />
-
-  <label for="date">Time</label>
-  <input
-    class="common-class-form"
-    type="time"
-    id="time"
-    name="entry.114358465"
-    required
-  />
-
-  <label for="account">Account From</label>
-  <select
-    class="common-class-form"
-    id="account"
-    name="entry.828597618"
-    required
+<div class="dashboard-wrapper">
+  <header
+    class="dashboard-header"
+    style="justify-content: center; text-align: center"
   >
-    <option value="">Select Account</option>
-  </select>
+    <div class="greeting-container" style="width: 100%">
+      <h1 class="greeting">Transfer</h1>
+    </div>
+  </header>
 
-  <label for="account">Account To</label>
-  <select
-    class="common-class-form"
-    id="account_to"
-    name="entry.2140302251"
-    required
-  >
-    <option value="">Select Account</option>
-  </select>
+  <form id="add-expense-form" class="form-class">
+    <label for="date">Date</label>
+    <input
+      class="common-class-form"
+      type="date"
+      id="date"
+      name="entry.664582640"
+      required
+    />
 
-  <label hidden for="category">Category</label>
-  <select
-    hidden
-    class="common-class-form"
-    id="category"
-    name="entry.272783202"
-    required
-  >
-    <option value="transfer">Transfer</option>
-    <option value="income">Income</option>
-    <option value="expense">Expense</option>
-    <option value="">Select Category</option>
-  </select>
+    <label for="date">Time</label>
+    <input
+      class="common-class-form"
+      type="time"
+      id="time"
+      name="entry.114358465"
+      required
+    />
 
-  <label for="amount">Amount</label>
-  <input
-    class="common-class-form"
-    type="number"
-    step="0.01"
-    id="amount"
-    name="entry.255091399"
-    required
-  />
-
-  <label for="description">Description</label>
-  <textarea
-    class="common-class-form"
-    id="description"
-    name="entry.1202901311"
-    rows="3"
-    placeholder="Optional"
-  ></textarea>
-  <div id="button-div" style="display: flex">
-    <button
-      id="submit-button"
-      class="common-class-form submit-button"
-      type="submit"
+    <label for="account">Account From</label>
+    <select
+      class="common-class-form"
+      id="account"
+      name="entry.828597618"
+      required
     >
-      Submit
-    </button>
-    <button
-      id="delete-button"
-      class="common-class-form submit-button delete-button"
-      type="submit"
-    >
-      Delete
-    </button>
-  </div>
+      <option value="">Select Account</option>
+    </select>
 
-  <input hidden class="common-class-form" id="id" name="entry.2076208081" />
-  <input hidden class="common-class-form" id="cancel" name="entry.10695379" />
-</form>
+    <label for="account_to">Account To</label>
+    <select
+      class="common-class-form"
+      id="account_to"
+      name="entry.2140302251"
+      required
+    >
+      <option value="">Select Account</option>
+    </select>
+
+    <label hidden for="category">Category</label>
+    <select
+      hidden
+      class="common-class-form"
+      id="category"
+      name="entry.272783202"
+      required
+    >
+      <option value="transfer">Transfer</option>
+      <option value="income">Income</option>
+      <option value="expense">Expense</option>
+      <option value="">Select Category</option>
+    </select>
+
+    <label for="amount">Amount</label>
+    <input
+      class="common-class-form"
+      type="number"
+      step="0.01"
+      id="amount"
+      name="entry.255091399"
+      placeholder="₹ 0.00"
+      required
+    />
+
+    <label for="description">Description</label>
+    <textarea
+      class="common-class-form"
+      id="description"
+      name="entry.1202901311"
+      rows="3"
+      placeholder="Optional notes"
+    ></textarea>
+
+    <div id="button-div">
+      <button
+        id="submit-button"
+        class="submit-button"
+        style="background-color: #007bff"
+        onmouseover="this.style.backgroundColor = '#0056b3'"
+        onmouseout="this.style.backgroundColor = '#007bff'"
+        type="submit"
+      >
+        Save Transfer
+      </button>
+      <button
+        id="delete-button"
+        class="submit-button delete-button"
+        type="button"
+      >
+        Delete
+      </button>
+    </div>
+
+    <input hidden class="common-class-form" id="id" name="entry.2076208081" />
+    <input hidden class="common-class-form" id="cancel" name="entry.10695379" />
+  </form>
+</div>
