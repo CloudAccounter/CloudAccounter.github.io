@@ -11,9 +11,8 @@ expenseState = {
 };
 
 // Period selection and Date picker setup
-// Period selection and Date picker setup
 currentPeriod = "monthly"; // default
-currentLedgerPeriodDate = new Date();
+currentLedgerPeriodDate = window.currentLedgerPeriodDate || new Date();
 
 if (!window.filter) {
   window.filter = {};
