@@ -158,4 +158,25 @@ const mainRoutes = {
       },
     ],
   },
+  ledgerTransaction: {
+    pages: [["src/ledgerTransaction/ledgerTransaction.html", "main-content"]],
+    head: [
+      {
+        tag: "link",
+        props: [
+          {href: "src/ledgerTransaction/ledgerTransaction.css"},
+          {rel: "stylesheet"},
+        ],
+      },
+    ],
+    tail: [
+      {
+        tag: "script",
+        props: [
+          {type: "text/javascript"},
+          {src: "src/ledgerTransaction/ledgerTransaction.js"},
+        ],
+      },
+    ],
+  },
 };

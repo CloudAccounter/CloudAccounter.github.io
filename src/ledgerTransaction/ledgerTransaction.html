@@ -1,0 +1,22 @@
+<div class="transaction-section" id="recent-transactions">
+  <h1>Ledger Transactions</h1>
+
+  <div class="tabs-container">
+    <button class="tab-button active" onclick="switchLedgerTab('income')">
+      Income
+    </button>
+    <button class="tab-button" onclick="switchLedgerTab('expense')">
+      Expense
+    </button>
+  </div>
+
+  <div id="income-transactions" class="tab-content active">
+    <!-- Income transactions will be loaded here -->
+    <div class="transaction-list" id="income-transaction-list"></div>
+  </div>
+
+  <div id="expense-transactions" class="tab-content">
+    <!-- Expense transactions will be loaded here -->
+    <div class="transaction-list" id="expense-transaction-list"></div>
+  </div>
+</div>

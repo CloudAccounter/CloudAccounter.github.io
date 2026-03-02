@@ -1,0 +1,38 @@
+/* Reuse general transaction styles */
+@import url("../transaction/transaction.css");
+
+.tabs-container {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 10px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  color: #555;
+  transition: all 0.3s ease;
+}
+
+.tab-button:hover {
+  background-color: #f0f0f0;
+}
+
+.tab-button.active {
+  color: #007bff;
+  border-bottom: 3px solid #007bff;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
