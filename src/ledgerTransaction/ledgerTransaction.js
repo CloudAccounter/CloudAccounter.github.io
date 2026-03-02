@@ -71,8 +71,21 @@ async function loadLedgerData(type, forceRefresh = false) {
 
   try {
     const res = await readGsheetData(SHEET_ID, GID, QUERY);
-    const columns = [...res?.table?.cols];
-    const rows = res?.table?.rows;
+
+    if (res?.errors) {
+      console.error("GSheet query error:", res.errors);
+      state.isLoading = false;
+      return;
+    }
+
+    if (!res || !res.table || !res.table.cols) {
+      console.error("Invalid response from google sheet:", res);
+      state.isLoading = false;
+      return;
+    }
+
+    const columns = [...res.table.cols];
+    const rows = res.table.rows;
 
     if (!rows || rows.length === 0) {
       state.isEndOfData = true;

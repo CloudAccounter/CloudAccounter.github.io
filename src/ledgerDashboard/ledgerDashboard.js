@@ -42,7 +42,7 @@ async function loadLedgerAccountData() {
         const accountItem = document.createElement("div");
         accountItem.onclick = function () {
           selectedAccount = {...account};
-          loadPage(`transaction`);
+          loadPage(`ledgerTransaction`);
         };
         accountItem.classList.add("account-item");
         accountItem.innerHTML = `
