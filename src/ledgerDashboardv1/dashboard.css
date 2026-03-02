@@ -20,8 +20,8 @@
 
 /* Header */
 .dashboard-header {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex; */
+  /* justify-content: space-between; */
   align-items: center;
   margin-bottom: 24px;
 }
@@ -49,6 +49,7 @@
   color: #495057;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
   cursor: pointer;
+  width: 100%;
 }
 
 .month-selector-input {
@@ -59,6 +60,7 @@
   color: #495057;
   outline: none;
   cursor: pointer;
+  width: 100%;
 }
 
 .profile-pic {
@@ -152,6 +154,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+  font-size: 10px;
 }
 
 .widget-header h3 {
@@ -347,10 +350,11 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+
 }
 
 .tx-title {
-  font-size: 15px;
+  font-size: 10px;
   font-weight: 600;
   color: #1a1b25;
   margin-bottom: 2px;
@@ -359,19 +363,19 @@
 .tx-amount-green {
   color: #34c759;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 10px;
 }
 
 .tx-amount-red {
   color: #ff3b30;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 10px;
 }
 
 .tx-amount-blue {
   color: #007bff;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 10px;
 }
 
 .ml-auto {
