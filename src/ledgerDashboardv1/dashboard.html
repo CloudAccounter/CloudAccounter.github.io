@@ -2,7 +2,7 @@
   <!-- Header -->
   <header class="dashboard-header">
     <div class="greeting-container">
-      <h1 class="greeting">Good Morning</h1>
+      <p class="greeting">Good Morning</p>
     </div>
     <div class="header-controls">
       <div class="month-selector">
@@ -60,7 +60,7 @@
   <section
     class="widget-card"
     onclick="
-      loadPage('transaction');
+      loadPage('ledgerTransaction');
       selectedAccount = {};
     "
   >
@@ -101,7 +101,7 @@
   </section>
 
   <!-- Two Column Layout: Accounts & Top Expenses -->
-  <div class="two-col-grid">
+  <div class="two-col-grid" style="display: none">
     <!-- Accounts -->
     <section class="widget-card">
       <div class="widget-header">
@@ -126,7 +126,7 @@
   </div>
 
   <!-- Insights -->
-  <section class="widget-card insight-widget">
+  <section class="widget-card insight-widget" style="display: none">
     <div class="widget-header">
       <h3><i class="fas fa-lightbulb insight-icon-header"></i> Insights</h3>
       <div class="dots"><i class="fas fa-ellipsis-h"></i></div>
@@ -145,7 +145,7 @@
       <div
         class="dots"
         onclick="
-          loadPage('transaction');
+          loadPage('ledgerTransaction');
           selectedAccount = {};
         "
       >

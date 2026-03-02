@@ -39,11 +39,26 @@ async function loadDashboardData() {
       accountData.push(accountObject);
     });
 
-    // Calculate Net Balance (Exclude Ledger Accounts)
-    const nonLedgerAccounts = accountData.filter(
-      (acc) => acc.ACCOUNT_TYPE !== "LEDGER",
-    );
-    const netBalance = nonLedgerAccounts.reduce(
+    // Calculate Net Balance for the selected ledger
+    let filteredAccounts = accountData;
+    if (
+      typeof selectedAccount !== "undefined" &&
+      selectedAccount &&
+      selectedAccount.ACCOUNT_NAME
+    ) {
+      filteredAccounts = accountData.filter(
+        (acc) => acc.ACCOUNT_NAME === selectedAccount.ACCOUNT_NAME,
+      );
+      document.querySelector(".greeting").textContent =
+        "Good Morning, " + selectedAccount.ACCOUNT_NAME;
+    } else {
+      // Fallback if no ledger selected
+      filteredAccounts = accountData.filter(
+        (acc) => acc.ACCOUNT_TYPE === "LEDGER",
+      );
+    }
+
+    const netBalance = filteredAccounts.reduce(
       (sum, acc) => sum + (acc.BALANCE || 0),
       0,
     );
@@ -59,14 +74,15 @@ async function loadDashboardData() {
       CASH: {icon: "fa-money-bill-wave", color: "#28a745"},
       BANK: {icon: "fa-briefcase", color: "#007bff"},
       CREDIT: {icon: "fa-credit-card", color: "#dc3545"},
+      LEDGER: {icon: "fa-book", color: "#ff9800"},
       DEFAULT: {icon: "fa-folder", color: "#6c757d"},
     };
 
     const uniqueTypes = [
-      ...new Set(nonLedgerAccounts.map((a) => a.ACCOUNT_TYPE)),
+      ...new Set(filteredAccounts.map((a) => a.ACCOUNT_TYPE)),
     ];
     uniqueTypes.slice(0, 3).forEach((type) => {
-      const total = nonLedgerAccounts
+      const total = filteredAccounts
         .filter((a) => a.ACCOUNT_TYPE === type)
         .reduce((sum, a) => sum + (a.BALANCE || 0), 0);
       const mapping = typeIconMap[type.toUpperCase()] || typeIconMap["DEFAULT"];
@@ -74,8 +90,7 @@ async function loadDashboardData() {
       const typeDiv = document.createElement("div");
       typeDiv.className = "account-item-dash";
       typeDiv.onclick = function () {
-        loadPage("transaction");
-        selectedAccount = {};
+        loadPage("ledgerTransaction");
       };
       typeDiv.innerHTML = `
         <div class="account-icon-wrap" style="color: ${mapping.color}">
@@ -91,7 +106,16 @@ async function loadDashboardData() {
 
     // 2. Fetch Transactions (for Income/Expense and Recent)
     // We will fetch the recent 100 transactions to deduce the monthly spending
-    const txQuery = `SELECT * WHERE (L IS NULL OR L != 1) ORDER BY E DESC, F DESC LIMIT 100`;
+    let txQuery = `SELECT * WHERE (L IS NULL OR L != 1)`;
+    if (
+      typeof selectedAccount !== "undefined" &&
+      selectedAccount &&
+      selectedAccount.ACCOUNT_NAME
+    ) {
+      txQuery += ` AND (G='${selectedAccount.ACCOUNT_NAME}' OR H='${selectedAccount.ACCOUNT_NAME}')`;
+    }
+    txQuery += ` ORDER BY E DESC, F DESC LIMIT 100`;
+
     const txRes = await readGsheetData(SHEET_ID, TRANSACTIONS_GID, txQuery);
     const txCols = txRes?.table?.cols || [];
     const transactions = [];
