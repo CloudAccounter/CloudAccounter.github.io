@@ -1,139 +1,221 @@
-<div class="transaction-section" id="recent-transactions">
-  <h1
-    id="ledger-title"
-    style="
-      text-align: center;
-      color: #333;
-      margin-bottom: 5px;
-      font-size: 1.5rem;
-    "
+<div class="dashboard-wrapper">
+  <!-- Header -->
+  <header
+    class="dashboard-header"
+    style="justify-content: center; text-align: center"
   >
-    Ledger Transactions
-  </h1>
+    <div class="greeting-container" style="width: 100%">
+      <h1 class="greeting" id="ledger-title" style="margin-bottom: 8px">
+        Ledger Transactions
+      </h1>
+    </div>
+  </header>
 
-  <div
-    id="ledger-transaction-filter"
-    class="date-picker-container"
-    style="
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-    "
-  >
-    <select
-      id="ledgerPeriodSelect"
+  <!-- Filter Widget -->
+  <section class="widget-card" style="margin-bottom: 20px">
+    <div
+      id="ledger-transaction-filter"
       style="
-        /* padding: 5px; */
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        font-size: 1rem;
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
       "
     >
-      <option value="monthly" selected>Monthly</option>
-      <option value="weekly">Weekly</option>
-      <option value="custom">Custom Period</option>
-    </select>
+      <div class="month-selector" style="width: auto; margin-right: 10px">
+        <select id="ledgerPeriodSelect" class="month-selector-input">
+          <option value="monthly" selected>Monthly</option>
+          <option value="weekly">Weekly</option>
+          <option value="custom">Custom Period</option>
+        </select>
+      </div>
 
-    <div
-      id="ledgerPeriodNavigation"
-      style="display: flex; gap: 10px; align-items: center"
-    >
-      <button id="prevLedgerPeriodBtn" class="incrementButton">&lt;</button>
-      <span
-        id="ledgerPeriodLabel"
-        style="
-          font-weight: bold;
-          min-width: 100px;
-          text-align: center;
-          font-size: 14px;
-          color: #555;
-        "
-      ></span>
-      <button id="nextLedgerPeriodBtn" class="incrementButton">&gt;</button>
-    </div>
-
-    <div
-      id="custom-date-fields"
-      style="display: none; gap: 10px; align-items: center; flex-wrap: wrap"
-    >
-      <label for="ledgerDateFrom" style="font-size: 10px; color: #555"
-        >From:</label
+      <div
+        id="ledgerPeriodNavigation"
+        style="display: flex; gap: 10px; align-items: center"
       >
-      <input type="date" id="ledgerDateFrom" class="transaction-date" />
-      <label for="ledgerDateTo" style="font-size: 10px; color: #555">To:</label>
-      <input type="date" id="ledgerDateTo" class="transaction-date" />
+        <div
+          id="prevLedgerPeriodBtn"
+          class="dots"
+          style="font-size: 16px; width: 30px; text-align: center"
+        >
+          <i class="fas fa-chevron-left"></i>
+        </div>
+        <span
+          id="ledgerPeriodLabel"
+          style="
+            font-weight: 600;
+            min-width: 100px;
+            text-align: center;
+            font-size: 14px;
+            color: #495057;
+          "
+        ></span>
+        <div
+          id="nextLedgerPeriodBtn"
+          class="dots"
+          style="font-size: 16px; width: 30px; text-align: center"
+        >
+          <i class="fas fa-chevron-right"></i>
+        </div>
+      </div>
+
+      <div
+        id="custom-date-fields"
+        style="display: none; gap: 10px; align-items: center; flex-wrap: wrap"
+      >
+        <label for="ledgerDateFrom" style="font-size: 12px; color: #555"
+          >From:</label
+        >
+        <input
+          type="date"
+          id="ledgerDateFrom"
+          class="month-selector-input"
+          style="
+            width: auto;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 6px;
+          "
+        />
+        <label for="ledgerDateTo" style="font-size: 12px; color: #555"
+          >To:</label
+        >
+        <input
+          type="date"
+          id="ledgerDateTo"
+          class="month-selector-input"
+          style="
+            width: auto;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 6px;
+          "
+        />
+      </div>
+
+      <div
+        id="reloadLedgerData"
+        class="dots"
+        title="Reload Data"
+        style="font-size: 16px"
+      >
+        <i class="fas fa-sync-alt"></i>
+      </div>
     </div>
+  </section>
+
+  <!-- Net Balance Card -->
+  <section class="net-balance-card" style="margin-bottom: 20px">
+    <div class="card-content">
+      <h2>Ledger Balance</h2>
+      <h1 id="ledger-balance-amount">₹0.00</h1>
+    </div>
+    <div class="chart-background">
+      <svg viewBox="0 0 100 30" preserveAspectRatio="none" class="bg-sparkline">
+        <path
+          d="M0,30 L0,25 L10,22 L20,26 L30,15 L40,18 L50,10 L60,14 L70,8 L80,12 L90,2 L100,0 L100,30 Z"
+          fill="rgba(255,255,255,0.1)"
+        ></path>
+        <path
+          d="M0,25 L10,22 L20,26 L30,15 L40,18 L50,10 L60,14 L70,8 L80,12 L90,2 L100,0"
+          fill="none"
+          stroke="rgba(255,255,255,0.4)"
+          stroke-width="0.5"
+        ></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Tabs -->
+  <div
+    class="tabs-container"
+    style="display: flex; gap: 10px; margin-bottom: 16px; border: none"
+  >
     <button
-      id="reloadLedgerData"
-      title="Reload Data"
+      class="tab-button active"
+      onclick="switchLedgerTab('income')"
       style="
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 1.2rem;
-        color: #007bff;
-        padding: 0 5px;
+        flex: 1;
+        border-radius: 12px;
+        background: white;
+        border: 1px solid #e2e8f0;
+        padding: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
       "
     >
-      ↻
-    </button>
-  </div>
-
-  <div
-    class="ledger-balance-card"
-    style="
-      text-align: center;
-      padding: 12px;
-      margin: 15px 0;
-      background: #f8f9fa;
-      border: 1px solid #e9ecef;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 1.1em;
-      color: #333;
-    "
-  >
-    Balance: <span id="ledger-balance-amount" style="color: #007bff">0.00</span>
-  </div>
-
-  <div class="tabs-container">
-    <button class="tab-button active" onclick="switchLedgerTab('income')">
-      Income<br /><span
+      <div style="font-size: 12px; color: #6c757d; margin-bottom: 4px">
+        Income
+      </div>
+      <div
         id="ledger-income-total"
-        style="
-          font-weight: normal;
-          font-size: 0.85em;
-          color: green;
-          margin-top: 4px;
-          display: inline-block;
-        "
-        >0.00</span
+        style="font-size: 16px; font-weight: 700; color: #34c759"
       >
+        ₹0.00
+      </div>
     </button>
-    <button class="tab-button" onclick="switchLedgerTab('expense')">
-      Expense<br /><span
+    <button
+      class="tab-button"
+      onclick="switchLedgerTab('expense')"
+      style="
+        flex: 1;
+        border-radius: 12px;
+        background: white;
+        border: 1px solid #e2e8f0;
+        padding: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      "
+    >
+      <div style="font-size: 12px; color: #6c757d; margin-bottom: 4px">
+        Expense
+      </div>
+      <div
         id="ledger-expense-total"
-        style="
-          font-weight: normal;
-          font-size: 0.85em;
-          color: red;
-          margin-top: 4px;
-          display: inline-block;
-        "
-        >0.00</span
+        style="font-size: 16px; font-weight: 700; color: #ff3b30"
       >
+        ₹0.00
+      </div>
     </button>
   </div>
 
-  <div id="income-transactions" class="tab-content active">
-    <!-- Income transactions will be loaded here -->
-    <div class="transaction-list" id="income-transaction-list"></div>
-  </div>
+  <section
+    class="widget-card tab-content active"
+    id="income-transactions"
+    style="padding: 16px"
+  >
+    <div class="widget-header">
+      <h3>
+        <i class="fas fa-arrow-down" style="color: #34c759"></i> Income List
+      </h3>
+    </div>
+    <div
+      class="transactions-list"
+      id="income-transaction-list"
+      style="padding-top: 8px"
+    >
+      <!-- Generated via JS -->
+    </div>
+  </section>
 
-  <div id="expense-transactions" class="tab-content">
-    <!-- Expense transactions will be loaded here -->
-    <div class="transaction-list" id="expense-transaction-list"></div>
-  </div>
+  <section
+    class="widget-card tab-content"
+    id="expense-transactions"
+    style="padding: 16px"
+  >
+    <div class="widget-header">
+      <h3>
+        <i class="fas fa-arrow-up" style="color: #ff3b30"></i> Expense List
+      </h3>
+    </div>
+    <div
+      class="transactions-list"
+      id="expense-transaction-list"
+      style="padding-top: 8px"
+    >
+      <!-- Generated via JS -->
+    </div>
+  </section>
+
+  <div style="height: 80px"></div>
 </div>

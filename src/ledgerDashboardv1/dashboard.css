@@ -154,7 +154,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .widget-header h3 {
@@ -354,7 +354,7 @@
 }
 
 .tx-title {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   color: #1a1b25;
   margin-bottom: 2px;
@@ -363,19 +363,19 @@
 .tx-amount-green {
   color: #34c759;
   font-weight: 600;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .tx-amount-red {
   color: #ff3b30;
   font-weight: 600;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .tx-amount-blue {
   color: #007bff;
   font-weight: 600;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .ml-auto {

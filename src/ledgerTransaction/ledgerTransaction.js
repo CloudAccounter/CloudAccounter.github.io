@@ -296,51 +296,63 @@ function renderLedgerTransactions(transactionData, listId, clearList = false) {
   if (clearList) transactionList.innerHTML = "";
 
   if (transactionData && transactionData.length > 0) {
+    const txIconMap = {
+      income: {icon: "fa-arrow-down", color: "#28a745", bg: "#e8f5e9"},
+      expense: {icon: "fa-arrow-up", color: "#dc3545", bg: "#ffebee"},
+      transfer: {icon: "fa-exchange-alt", color: "#007bff", bg: "#e3f2fd"},
+    };
+
     transactionData.forEach((transaction) => {
+      const isIncome = transaction?.CATEGORY === "income";
+      const catInfo = txIconMap[transaction?.CATEGORY] || txIconMap["expense"];
+      const sign = isIncome ? "+" : "-";
+      const amountClass = isIncome ? "tx-amount-green" : "tx-amount-red";
+
+      let title = transaction?.ACCOUNT || "Transaction";
+      if (transaction?.TO) {
+        title = `${transaction?.ACCOUNT} to ${transaction?.TO}`;
+      } else if (transaction?.DESCRIPTION) {
+        title = transaction?.DESCRIPTION;
+      }
+
+      let niceDate = "";
+      if (
+        typeof transaction?.DATE === "string" &&
+        transaction?.DATE.startsWith("Date")
+      ) {
+        niceDate = formatCustomDate(transaction?.DATE);
+      } else {
+        niceDate = transaction?.DATE ? formatCustomDate(transaction?.DATE) : "";
+      }
+
       const transactionItem = document.createElement("div");
       transactionItem.onclick = function () {
         selectedTransaction = {...transaction};
         loadPage(`add${capitalizeFirstLetter(transaction?.CATEGORY)}`);
       };
-      transactionItem.classList.add("transaction-item");
+      transactionItem.className = "recent-tx-item";
       transactionItem.innerHTML = `
-            <span class="transaction-account">
-              ${
-                transaction?.TO
-                  ? `${transaction?.ACCOUNT || ""} - ${transaction?.TO}`
-                  : `${transaction?.ACCOUNT || ""}`
-              }
-            </span>
-
-            <span class="transaction-description">${
-              transaction?.DESCRIPTION || ""
-            }</span>
-
-            <span class="amount" style="color:${
-              transaction?.CATEGORY === "income" ? "green" : "red"
-            }">${formatNumber(transaction?.AMOUNT) || ""}</span>
-            
-            <span class="transaction-account">${
-              transaction?.CATEGORY || ""
-            }</span>
-
-            <div style="color:grey; font-size:2vh;">${
-              formatCustomDate(transaction?.DATE) || ""
-            } </div>
-
-            <div style="color:grey; font-size:2vh; text-align:right;">${
-              formatCustomTime(transaction?.TIME) || ""
-            }</div>
-        `;
+          <div class="tx-icon-wrap" style="background: ${catInfo.bg}; color: ${catInfo.color}">
+            <i class="fas ${catInfo.icon}"></i>
+          </div>
+          <div class="tx-details-dash">
+            <span class="tx-title">${title}</span>
+            <span class="tx-date" style="font-size: 12px; color: #6c757d;">${niceDate}</span>
+          </div>
+          <div style="text-align: right;">
+            <strong class="${amountClass}" style="display: block; font-size: 12px; margin-bottom: 2px;">${sign}₹${formatNumber(transaction?.AMOUNT)}</strong>
+            <span style="font-size: 12px; color: #adb5bd;">${formatCustomTime(transaction?.TIME) || ""}</span>
+          </div>
+      `;
       transactionList.appendChild(transactionItem);
     });
   } else if (clearList) {
     const transactionItem = document.createElement("div");
-    transactionItem.classList.add("transaction-no-item");
-    transactionItem.innerHTML = `
-            <span class="transaction-account" style="text-align:center;margin:auto">
-              no transactions found
-            </span>`;
+    transactionItem.style.textAlign = "center";
+    transactionItem.style.color = "#999";
+    transactionItem.style.fontSize = "12px";
+    transactionItem.style.padding = "20px";
+    transactionItem.innerHTML = "no transactions found";
     transactionList.appendChild(transactionItem);
   }
 }

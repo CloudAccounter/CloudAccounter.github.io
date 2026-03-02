@@ -1,147 +1,51 @@
-/* General Dashboard Styles */
+/* Custom Transaction styles to supplement dashboard framework */
 
-.transaction-section {
-  /* background-color: #f9f9f9; */
-  border-radius: 8px;
-  /* padding: 10px; */
-  max-width: 400px;
-  margin: auto;
-  /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
-}
-
-.transaction-section {
-  /* font-size: 14px; */
-  /* color: #333; */
-}
-
-.transaction-section .account-list,
-.transaction-section .loan-list,
-.transaction-section .transaction-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.transaction-item {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1vh;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-}
-
-.transaction-section .account-item .account-name,
-.transaction-section .loan-item .loan-name,
-.transaction-section .transaction-item .transaction-description {
-  font-weight: bold;
-}
-.transaction-account {
-  /* font-size: small; */
-  color: grey;
-}
-
-.transaction-section .account-item .balance,
-.transaction-section .loan-item .remaining-loan,
-.transaction-section .transaction-item .amount {
-  /* font-size: 1.1em; */
-  text-align: right;
-}
-
-.transaction-section .account-item .balance,
-.transaction-section .loan-item .remaining-loan {
-  /* font-size: 1.2em; */
-}
-
-.transaction-section .transaction-item {
-  background-color: #f3f3f3;
-}
-
-.date-picker-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  /* margin-bottom: 5vh; */
-}
-
-.incrementButton {
-  font-size: 20px;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  border-radius: 50%;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-  border-width: 0px;
-}
-
-.transaction-date {
-  font-size: 10px;
-  padding: 5px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-  border-width: 0px;
-  font-family: "Poppins";
-  text-align: center;
-  color: grey;
-}
-
-.transaction-no-item {
-  width: 100%;
-  text-align: center;
-}
-
-/* // period selection drop down */
 .period-dropdown {
   position: relative;
   display: inline-block;
+  width: 100%;
 }
+
 .period-dropdown-btn {
-  padding: 10px 15px;
-  font-size: 16px;
-  border: none;
-  background-color: #007bff;
-  color: white;
+  font-size: 14px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  border-radius: 5px;
+  justify-content: center;
 }
-.period-dropdown-btn:hover {
-  background-color: #0056b3;
-}
+
 .period-dropdown-icon {
   margin-left: 8px;
-  font-size: 14px;
+  font-size: 12px;
 }
+
 .period-dropdown-menu {
   display: none;
   position: absolute;
   background-color: white;
   min-width: 150px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
   overflow: hidden;
-  z-index: 1;
+  z-index: 100;
+  margin-top: 5px;
 }
+
 .period-dropdown-menu a {
   display: block;
   padding: 10px;
   text-decoration: none;
-  color: black;
+  color: #495057;
+  font-size: 14px;
+  border-bottom: 1px solid #f1f3f5;
+  transition: background-color 0.2s;
 }
+
+.period-dropdown-menu a:last-child {
+  border-bottom: none;
+}
+
 .period-dropdown-menu a:hover {
-  background-color: #f0f0f0;
-}
-
-/* For larger screens */
-@media (min-width: 768px) {
-  #transaction-container {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .transaction-section {
-    width: 48%;
-  }
+  background-color: #f8faff;
+  color: #4a71e8;
 }

@@ -37,7 +37,10 @@ const mainRoutes = {
     head: [
       {
         tag: "link",
-        props: [{href: "src/dashboard/dashboard.css"}, {rel: "stylesheet"}],
+        props: [
+          {href: "src/ledgerDashboardv1/dashboard.css"},
+          {rel: "stylesheet"},
+        ],
       },
     ],
     tail: [
@@ -53,6 +56,13 @@ const mainRoutes = {
   transaction: {
     pages: [["src/transaction/transaction.html", "main-content"]],
     head: [
+      {
+        tag: "link",
+        props: [
+          {href: "src/ledgerDashboardv1/dashboard.css"},
+          {rel: "stylesheet"},
+        ],
+      },
       {
         tag: "link",
         props: [{href: "src/transaction/transaction.css"}, {rel: "stylesheet"}],
@@ -163,7 +173,10 @@ const mainRoutes = {
     head: [
       {
         tag: "link",
-        props: [{href: "src/ledgerDashboardv1/dashboard.css"}, {rel: "stylesheet"}],
+        props: [
+          {href: "src/ledgerDashboardv1/dashboard.css"},
+          {rel: "stylesheet"},
+        ],
       },
     ],
     tail: [
@@ -179,6 +192,13 @@ const mainRoutes = {
   ledgerTransaction: {
     pages: [["src/ledgerTransaction/ledgerTransaction.html", "main-content"]],
     head: [
+      {
+        tag: "link",
+        props: [
+          {href: "src/ledgerDashboardv1/dashboard.css"},
+          {rel: "stylesheet"},
+        ],
+      },
       {
         tag: "link",
         props: [
