@@ -18,9 +18,16 @@ async function loadDashboardData() {
   else if (hours < 18) greeting = "Good Afternoon";
   document.querySelector(".greeting").textContent = greeting; // + " " + USER_NAME;
 
-  const options = {month: "long", year: "numeric"};
-  document.getElementById("current-month-display").textContent =
-    today.toLocaleDateString("en-US", options);
+  const monthSelector = document.getElementById("dashboard-month-selector");
+  if (!monthSelector.value) {
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    monthSelector.value = `${year}-${month}`;
+  }
+
+  monthSelector.onchange = () => {
+    loadDashboardData();
+  };
 
   try {
     // 1. Fetch Balances
@@ -63,7 +70,7 @@ async function loadDashboardData() {
       0,
     );
     document.getElementById("net-balance-amount").textContent =
-      "$" + formatNumber(netBalance);
+      "₹" + formatNumber(netBalance);
 
     // Render Accounts List
     const accountsListEl = document.getElementById("dashboard-accounts-list");
@@ -99,7 +106,7 @@ async function loadDashboardData() {
         <div class="account-info">
           <span class="account-name-short">${type.charAt(0).toUpperCase() + type.slice(1).toLowerCase()}</span>
         </div>
-        <strong class="account-bal">$${formatNumber(total)}</strong>
+        <strong class="account-bal">₹${formatNumber(total)}</strong>
       `;
       accountsListEl.appendChild(typeDiv);
     });
@@ -132,8 +139,9 @@ async function loadDashboardData() {
     let totalExpense = 0;
     const expensesByCategory = {};
 
-    const currentMonth = today.getMonth();
-    const currentYear = today.getFullYear();
+    const [selYear, selMonth] = monthSelector.value.split("-");
+    const currentYear = parseInt(selYear, 10);
+    const currentMonth = parseInt(selMonth, 10) - 1;
 
     transactions.forEach((tx) => {
       let txDate;
@@ -166,13 +174,13 @@ async function loadDashboardData() {
     });
 
     document.getElementById("total-income-amount").textContent =
-      "$" + formatNumber(totalIncome);
+      "₹" + formatNumber(totalIncome);
     document.getElementById("total-expense-amount").textContent =
-      "$" + formatNumber(totalExpense);
+      "₹" + formatNumber(totalExpense);
     document.getElementById("cashflow-income").textContent =
-      "$" + formatNumber(totalIncome);
+      "₹" + formatNumber(totalIncome);
     document.getElementById("cashflow-expense").textContent =
-      "$" + formatNumber(totalExpense);
+      "₹" + formatNumber(totalExpense);
 
     const maxFlow = Math.max(totalIncome, totalExpense);
     if (maxFlow > 0) {
@@ -310,7 +318,7 @@ async function loadDashboardData() {
             <span class="tx-title">${title}</span>
             <span class="tx-date">${niceDate}</span>
           </div>
-          <strong class="${amountClass}">${sign}$${formatNumber(tx.AMOUNT)}</strong>
+          <strong class="${amountClass}">${sign}₹${formatNumber(tx.AMOUNT)}</strong>
       `;
       txListEl.appendChild(itemDiv);
     });

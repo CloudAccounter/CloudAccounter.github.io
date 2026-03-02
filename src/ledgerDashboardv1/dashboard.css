@@ -1,7 +1,6 @@
 /* Dashboard Base Styles */
 .dashboard-wrapper {
   padding: 20px;
-  font-family: "Plus Jakarta Sans", "Inter", sans-serif;
   background-color: #f8f9fa;
   min-height: 100vh;
   padding-bottom: 80px;
@@ -49,6 +48,16 @@
   font-size: 14px;
   color: #495057;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+  cursor: pointer;
+}
+
+.month-selector-input {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  color: #495057;
+  outline: none;
   cursor: pointer;
 }
 

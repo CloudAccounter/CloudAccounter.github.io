@@ -177,6 +177,11 @@ async function loadAccountData() {
     accountOptionsElement.appendChild(accountOption);
   });
 
+  const defaultAccount = localStorage.getItem("defaultAccount");
+  if (defaultAccount) {
+    accountOptionsElement.value = defaultAccount;
+  }
+
   const accountToOptionsElement = document.getElementById("account_to");
   accountList.forEach((acc) => {
     if (
@@ -190,7 +195,20 @@ async function loadAccountData() {
     accountToOptionsElement.appendChild(accountOption);
   });
 
+  const defaultLedger = localStorage.getItem("defaultLedger");
+  if (defaultLedger) {
+    accountToOptionsElement.value = defaultLedger;
+  }
+
   setTimeout(singleFetchTransaction(selectedTransaction), 1000);
 }
+
+document.getElementById("account_to").addEventListener("change", function (e) {
+  localStorage.setItem("defaultLedger", e.target.value);
+});
+
+document.getElementById("account").addEventListener("change", function (e) {
+  localStorage.setItem("defaultAccount", e.target.value);
+});
 
 loadAccountData();

@@ -3,8 +3,8 @@ let pageHistory = []; // Initialize an empty history stack
 let accountData = [];
 
 const loanData = [
-  { name: "Car Loan", remainingLoan: 8000, currency: "USD" },
-  { name: "Home Loan", remainingLoan: 150000, currency: "USD" },
+  {name: "Car Loan", remainingLoan: 8000, currency: "USD"},
+  {name: "Home Loan", remainingLoan: 150000, currency: "USD"},
 ];
 
 let transactionData = [];
@@ -13,7 +13,19 @@ let isLoading = false;
 let isEndOfData = false;
 const pageSize = 20;
 let selectedTransaction = {};
-let selectedAccount;
+Object.defineProperty(window, "selectedAccount", {
+  get: function () {
+    const val = localStorage.getItem("selectedAccount");
+    return val ? JSON.parse(val) : undefined;
+  },
+  set: function (val) {
+    if (val === undefined || val === null) {
+      localStorage.removeItem("selectedAccount");
+    } else {
+      localStorage.setItem("selectedAccount", JSON.stringify(val));
+    }
+  },
+});
 let accountList = [];
 let filter = {
   DATE: "",
@@ -50,7 +62,7 @@ function getNewDateTime() {
   const formattedDate = `Date(${year},${month},${day})`;
 
   today = new Date(
-    Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
+    Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()),
   ); // Create UTC midnight
 
   return {

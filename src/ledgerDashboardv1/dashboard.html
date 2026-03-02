@@ -6,8 +6,11 @@
     </div>
     <div class="header-controls">
       <div class="month-selector">
-        <span id="current-month-display">April 2024</span>
-        <i class="fas fa-chevron-down"></i>
+        <input
+          type="month"
+          id="dashboard-month-selector"
+          class="month-selector-input"
+        />
       </div>
       <img
         src="src/img/profile.png"
@@ -25,16 +28,16 @@
   <section class="net-balance-card">
     <div class="card-content">
       <h2>Net Balance</h2>
-      <h1 id="net-balance-amount">$0</h1>
+      <h1 id="net-balance-amount">₹0</h1>
       <div class="balance-details">
         <div class="detail-item">
           <span>Income:</span>
-          <strong id="total-income-amount">$0</strong>
+          <strong id="total-income-amount">₹0</strong>
           <i class="fas fa-arrow-up income-icon"></i>
         </div>
         <div class="detail-item">
           <span>Expense:</span>
-          <strong id="total-expense-amount">$0</strong>
+          <strong id="total-expense-amount">₹0</strong>
           <i class="fas fa-arrow-down expense-icon"></i>
         </div>
       </div>
@@ -78,7 +81,7 @@
             style="width: 0%"
           ></div>
         </div>
-        <strong id="cashflow-income">$0</strong>
+        <strong id="cashflow-income">₹0</strong>
         <i class="fas fa-arrow-up income-icon"></i>
       </div>
       <div class="flow-row">
@@ -90,7 +93,7 @@
             style="width: 0%"
           ></div>
         </div>
-        <strong id="cashflow-expense">$0</strong>
+        <strong id="cashflow-expense">₹0</strong>
         <i class="fas fa-arrow-down expense-icon"></i>
       </div>
     </div>
