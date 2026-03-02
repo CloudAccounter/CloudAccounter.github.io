@@ -16,9 +16,10 @@ async function loadLedgerAccountData() {
     return "";
   });
 
-  const ledgerAccounts = accountData.filter(
-    (account) => account.ACCOUNT_TYPE === "LEDGER",
-  );
+  const ledgerAccounts = accountData;
+  // .filter(
+  //   (account) => account.ACCOUNT_TYPE === "LEDGER",
+  // );
 
   const uniqueTypes = [
     ...new Set(ledgerAccounts.map((account) => account.ACCOUNT_TYPE)),

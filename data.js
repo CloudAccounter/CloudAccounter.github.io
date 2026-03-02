@@ -19,9 +19,7 @@ Object.defineProperty(window, "selectedAccount", {
     return val ? JSON.parse(val) : undefined;
   },
   set: function (val) {
-    if (val === undefined || val === null) {
-      localStorage.removeItem("selectedAccount");
-    } else {
+    if (val?.ACCOUNT_NAME) {
       localStorage.setItem("selectedAccount", JSON.stringify(val));
     }
   },
