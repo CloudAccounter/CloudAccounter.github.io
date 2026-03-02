@@ -2,17 +2,48 @@ currentTab = "income";
 
 incomeState = {
   data: [],
-  offset: 0,
-  isEndOfData: false,
   isLoading: false,
 };
 
 expenseState = {
   data: [],
-  offset: 0,
-  isEndOfData: false,
   isLoading: false,
 };
+
+// Date picker setup
+if (!window.filter) {
+  window.filter = {};
+}
+if (!window.filter.DATE_FROM) {
+  const today = new Date();
+  window.filter.DATE_FROM = new Date(today.getFullYear(), today.getMonth(), 1);
+}
+if (!window.filter.DATE_TO) {
+  window.filter.DATE_TO = new Date();
+}
+
+let ledgerDateFrom = document.getElementById("ledgerDateFrom");
+let ledgerDateTo = document.getElementById("ledgerDateTo");
+
+if (ledgerDateFrom) {
+  ledgerDateFrom.valueAsDate = filter.DATE_FROM;
+  ledgerDateFrom.addEventListener("change", (e) => {
+    if (e.target.value) {
+      filter.DATE_FROM = new Date(e.target.value);
+      loadLedgerDataForPeriod();
+    }
+  });
+}
+
+if (ledgerDateTo) {
+  ledgerDateTo.valueAsDate = filter.DATE_TO;
+  ledgerDateTo.addEventListener("change", (e) => {
+    if (e.target.value) {
+      filter.DATE_TO = new Date(e.target.value);
+      loadLedgerDataForPeriod();
+    }
+  });
+}
 
 function switchLedgerTab(tabName) {
   currentTab = tabName;
@@ -20,7 +51,7 @@ function switchLedgerTab(tabName) {
   // Update button active state
   document.querySelectorAll(".tab-button").forEach((btn) => {
     btn.classList.remove("active");
-    if (btn.textContent.toLowerCase() === tabName) {
+    if (btn.textContent.toLowerCase().includes(tabName)) {
       btn.classList.add("active");
     }
   });
@@ -30,100 +61,124 @@ function switchLedgerTab(tabName) {
     content.classList.remove("active");
   });
   document.getElementById(`${tabName}-transactions`).classList.add("active");
-
-  // Load data if empty
-  if (tabName === "income" && incomeState.data.length === 0) {
-    loadLedgerData("income");
-  } else if (tabName === "expense" && expenseState.data.length === 0) {
-    loadLedgerData("expense");
-  }
 }
 
-async function loadLedgerData(type, forceRefresh = false) {
-  const state = type === "income" ? incomeState : expenseState;
-  const listId = `${type}-transaction-list`;
-  const transactionList = document.getElementById(listId);
-
-  if (!transactionList) return;
-  if (!forceRefresh && (state.isLoading || state.isEndOfData)) return;
-
-  if (forceRefresh) {
-    transactionList.innerHTML = "";
-    state.offset = 0;
-    state.data = [];
-    state.isEndOfData = false;
+function updateLedgerTitle() {
+  const titleEl = document.getElementById("ledger-title");
+  if (titleEl) {
+    if (selectedAccount && selectedAccount.ACCOUNT_NAME) {
+      titleEl.innerText = `${selectedAccount.ACCOUNT_NAME} - Ledger`;
+    } else {
+      titleEl.innerText = `Ledger Transactions`;
+    }
   }
+}
+updateLedgerTitle();
 
-  state.isLoading = true;
+async function loadLedgerDataForPeriod() {
+  const incomeListId = "income-transaction-list";
+  const expenseListId = "expense-transaction-list";
+  const transactionListIncome = document.getElementById(incomeListId);
+  const transactionListExpense = document.getElementById(expenseListId);
+
+  if (!transactionListIncome || !transactionListExpense) return;
+  if (incomeState.isLoading || expenseState.isLoading) return;
+
+  incomeState.isLoading = true;
+  expenseState.isLoading = true;
+
+  transactionListIncome.innerHTML = "";
+  transactionListExpense.innerHTML = "";
+
+  incomeState.data = [];
+  expenseState.data = [];
 
   const SHEET_ID = JSON.parse(localStorage.getItem("user"))?.id;
   const GID = JSON.parse(localStorage.getItem("user"))?.VW_TRANSACTIONS;
 
-  // Base query with category filter
-  let QUERY = `SELECT * WHERE I = '${type}'`;
+  let QUERY = `SELECT * WHERE (I = 'income' OR I = 'expense')`;
 
-  if (selectedAccount?.ACCOUNT_NAME) {
-    QUERY += ` AND (G='${selectedAccount?.ACCOUNT_NAME}' OR H='${selectedAccount?.ACCOUNT_NAME}')`;
+  if (selectedAccount && selectedAccount.ACCOUNT_NAME) {
+    QUERY += ` AND (G='${selectedAccount.ACCOUNT_NAME}' OR H='${selectedAccount.ACCOUNT_NAME}')`;
   }
 
+  if (filter.DATE_FROM) {
+    QUERY += ` AND E >= date '${formatDateToYYYYMMDD(filter.DATE_FROM)}'`;
+  }
+  if (filter.DATE_TO) {
+    QUERY += ` AND E <= date '${formatDateToYYYYMMDD(filter.DATE_TO)}'`;
+  }
   QUERY += ` AND (L IS NULL OR L != 1) ORDER BY E DESC, F DESC`;
-  QUERY += ` LIMIT ${pageSize} OFFSET ${state.offset}`;
 
   try {
     const res = await readGsheetData(SHEET_ID, GID, QUERY);
 
+    let totalIncome = 0;
+    let totalExpense = 0;
+
     if (res?.errors) {
       console.error("GSheet query error:", res.errors);
-      state.isLoading = false;
+      incomeState.isLoading = false;
+      expenseState.isLoading = false;
       return;
     }
 
-    if (!res || !res.table || !res.table.cols) {
-      console.error("Invalid response from google sheet:", res);
-      state.isLoading = false;
-      return;
-    }
+    if (res && res.table && res.table.cols && res.table.rows) {
+      const columns = [...res.table.cols];
+      const rows = res.table.rows;
 
-    const columns = [...res.table.cols];
-    const rows = res.table.rows;
+      if (rows.length > 0) {
+        rows.forEach((item) => {
+          const transactionObject = {};
+          columns.forEach((header, i) => {
+            transactionObject[header?.label?.trim()] = item?.c?.[i]?.v;
+          });
 
-    if (!rows || rows.length === 0) {
-      state.isEndOfData = true;
-      state.isLoading = false;
-      if (state.offset === 0) {
-        renderLedgerTransactions([], listId);
+          if (transactionObject.CATEGORY === "income") {
+            incomeState.data.push(transactionObject);
+            totalIncome += Number(transactionObject.AMOUNT || 0);
+          } else if (transactionObject.CATEGORY === "expense") {
+            expenseState.data.push(transactionObject);
+            totalExpense += Number(transactionObject.AMOUNT || 0);
+          }
+        });
       }
-      return;
     }
 
-    const newData = [];
-    rows.forEach((item) => {
-      const transactionObject = {};
-      columns.forEach((header, i) => {
-        transactionObject[header?.label?.trim()] = item?.c?.[i]?.v;
-      });
-      newData.push(transactionObject);
-      state.data.push(transactionObject);
-    });
+    // Update Totals UI
+    const totalBalance = totalIncome - totalExpense;
 
-    state.offset += pageSize;
-    state.isLoading = false;
+    const incomeTotalEl = document.getElementById("ledger-income-total");
+    if (incomeTotalEl) incomeTotalEl.innerText = formatNumber(totalIncome);
 
-    renderLedgerTransactions(newData, listId, state.offset === pageSize);
+    const expenseTotalEl = document.getElementById("ledger-expense-total");
+    if (expenseTotalEl) expenseTotalEl.innerText = formatNumber(totalExpense);
+
+    const balanceEl = document.getElementById("ledger-balance-amount");
+    if (balanceEl) {
+      if (totalBalance > 0) {
+        balanceEl.style.color = "green";
+        balanceEl.innerText = `+${formatNumber(totalBalance)}`;
+      } else if (totalBalance < 0) {
+        balanceEl.style.color = "red";
+        balanceEl.innerText = `-${formatNumber(Math.abs(totalBalance))}`;
+      } else {
+        balanceEl.style.color = "#007bff";
+        balanceEl.innerText = formatNumber(0);
+      }
+    }
+
+    incomeState.isLoading = false;
+    expenseState.isLoading = false;
+
+    renderLedgerTransactions(incomeState.data, incomeListId, true);
+    renderLedgerTransactions(expenseState.data, expenseListId, true);
   } catch (err) {
-    console.error(`Error loading ${type} ledger data:`, err);
-    state.isLoading = false;
+    console.error(`Error loading ledger data:`, err);
+    incomeState.isLoading = false;
+    expenseState.isLoading = false;
   }
 }
-
-window.addEventListener("scroll", () => {
-  const nearBottom =
-    window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
-  if (nearBottom) {
-    // Only load more for the currently active tab
-    loadLedgerData(currentTab);
-  }
-});
 
 function renderLedgerTransactions(transactionData, listId, clearList = false) {
   const transactionList = document.getElementById(listId);
@@ -131,7 +186,7 @@ function renderLedgerTransactions(transactionData, listId, clearList = false) {
 
   if (clearList) transactionList.innerHTML = "";
 
-  if (transactionData?.length) {
+  if (transactionData && transactionData.length > 0) {
     transactionData.forEach((transaction) => {
       const transactionItem = document.createElement("div");
       transactionItem.onclick = function () {
@@ -171,7 +226,6 @@ function renderLedgerTransactions(transactionData, listId, clearList = false) {
       transactionList.appendChild(transactionItem);
     });
   } else if (clearList) {
-    // Only show "no transactions" if we are clearing the list (meaning offset 0 and no data)
     const transactionItem = document.createElement("div");
     transactionItem.classList.add("transaction-no-item");
     transactionItem.innerHTML = `
@@ -182,5 +236,5 @@ function renderLedgerTransactions(transactionData, listId, clearList = false) {
   }
 }
 
-// Initial load for the default active tab
-loadLedgerData("income");
+// Initial load for the default active date
+loadLedgerDataForPeriod();

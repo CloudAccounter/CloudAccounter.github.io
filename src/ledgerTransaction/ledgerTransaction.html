@@ -1,12 +1,78 @@
 <div class="transaction-section" id="recent-transactions">
-  <h1>Ledger Transactions</h1>
+  <h1
+    id="ledger-title"
+    style="
+      text-align: center;
+      color: #333;
+      margin-bottom: 5px;
+      font-size: 1.5rem;
+    "
+  >
+    Ledger Transactions
+  </h1>
+
+  <div
+    id="ledger-transaction-filter"
+    class="date-picker-container"
+    style="
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    "
+  >
+    <label for="ledgerDateFrom" style="font-weight: bold; color: #555"
+      >From:</label
+    >
+    <input type="date" id="ledgerDateFrom" class="transaction-date" />
+    <label for="ledgerDateTo" style="font-weight: bold; color: #555">To:</label>
+    <input type="date" id="ledgerDateTo" class="transaction-date" />
+  </div>
+
+  <div
+    class="ledger-balance-card"
+    style="
+      text-align: center;
+      padding: 12px;
+      margin: 15px 0;
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.1em;
+      color: #333;
+    "
+  >
+    Balance: <span id="ledger-balance-amount" style="color: #007bff">0.00</span>
+  </div>
 
   <div class="tabs-container">
     <button class="tab-button active" onclick="switchLedgerTab('income')">
-      Income
+      Income<br /><span
+        id="ledger-income-total"
+        style="
+          font-weight: normal;
+          font-size: 0.85em;
+          color: green;
+          margin-top: 4px;
+          display: inline-block;
+        "
+        >0.00</span
+      >
     </button>
     <button class="tab-button" onclick="switchLedgerTab('expense')">
-      Expense
+      Expense<br /><span
+        id="ledger-expense-total"
+        style="
+          font-weight: normal;
+          font-size: 0.85em;
+          color: red;
+          margin-top: 4px;
+          display: inline-block;
+        "
+        >0.00</span
+      >
     </button>
   </div>
 
