@@ -10,29 +10,122 @@ expenseState = {
   isLoading: false,
 };
 
-// Date picker setup
+// Period selection and Date picker setup
+// Period selection and Date picker setup
+currentPeriod = "monthly"; // default
+currentLedgerPeriodDate = new Date();
+
 if (!window.filter) {
   window.filter = {};
 }
-if (!window.filter.DATE_FROM) {
-  const today = new Date();
-  window.filter.DATE_FROM = new Date(today.getFullYear(), today.getMonth(), 1);
-}
-if (!window.filter.DATE_TO) {
-  const today = new Date();
-  window.filter.DATE_TO = new Date(
-    today.getFullYear(),
-    today.getMonth() + 1,
-    0,
-  );
-}
 
+ledgerPeriodSelect = document.getElementById("ledgerPeriodSelect");
+ledgerPeriodNavigation = document.getElementById("ledgerPeriodNavigation");
+ledgerPeriodLabel = document.getElementById("ledgerPeriodLabel");
+prevLedgerPeriodBtn = document.getElementById("prevLedgerPeriodBtn");
+nextLedgerPeriodBtn = document.getElementById("nextLedgerPeriodBtn");
+customDateFields = document.getElementById("custom-date-fields");
 ledgerDateFrom = document.getElementById("ledgerDateFrom");
 ledgerDateTo = document.getElementById("ledgerDateTo");
 reloadLedgerDataBtn = document.getElementById("reloadLedgerData");
 
+function setDatesByPeriod(period, refDate = new Date()) {
+  if (period === "monthly") {
+    filter.DATE_FROM = new Date(refDate.getFullYear(), refDate.getMonth(), 1);
+    filter.DATE_TO = new Date(refDate.getFullYear(), refDate.getMonth() + 1, 0);
+    if (ledgerPeriodLabel) {
+      ledgerPeriodLabel.innerText = refDate.toLocaleDateString("default", {
+        month: "long",
+        year: "numeric",
+      });
+    }
+  } else if (period === "weekly") {
+    const day = refDate.getDay();
+    const diff = refDate.getDate() - day + (day === 0 ? -6 : 1);
+    filter.DATE_FROM = new Date(
+      refDate.getFullYear(),
+      refDate.getMonth(),
+      diff,
+    );
+    filter.DATE_TO = new Date(
+      refDate.getFullYear(),
+      refDate.getMonth(),
+      diff + 6,
+    );
+    if (ledgerPeriodLabel) {
+      const fromStr = filter.DATE_FROM.toLocaleDateString("default", {
+        day: "2-digit",
+        month: "short",
+      });
+      const toStr = filter.DATE_TO.toLocaleDateString("default", {
+        day: "2-digit",
+        month: "short",
+      });
+      ledgerPeriodLabel.innerText = `${fromStr} - ${toStr}`;
+    }
+  }
+
+  if (ledgerDateFrom && filter.DATE_FROM)
+    ledgerDateFrom.valueAsDate = filter.DATE_FROM;
+  if (ledgerDateTo && filter.DATE_TO) ledgerDateTo.valueAsDate = filter.DATE_TO;
+}
+
+if (ledgerPeriodSelect) {
+  ledgerPeriodSelect.addEventListener("change", (e) => {
+    currentPeriod = e.target.value;
+    if (currentPeriod === "custom") {
+      if (customDateFields) customDateFields.style.display = "flex";
+      if (ledgerPeriodNavigation) ledgerPeriodNavigation.style.display = "none";
+    } else {
+      if (customDateFields) customDateFields.style.display = "none";
+      if (ledgerPeriodNavigation) ledgerPeriodNavigation.style.display = "flex";
+      currentLedgerPeriodDate = new Date(); // Reset ref date
+      setDatesByPeriod(currentPeriod, currentLedgerPeriodDate);
+      loadLedgerDataForPeriod();
+    }
+  });
+}
+
+if (prevLedgerPeriodBtn) {
+  prevLedgerPeriodBtn.addEventListener("click", () => {
+    if (currentPeriod === "monthly") {
+      currentLedgerPeriodDate.setMonth(currentLedgerPeriodDate.getMonth() - 1);
+    } else if (currentPeriod === "weekly") {
+      currentLedgerPeriodDate.setDate(currentLedgerPeriodDate.getDate() - 7);
+    }
+    setDatesByPeriod(currentPeriod, currentLedgerPeriodDate);
+    loadLedgerDataForPeriod();
+  });
+}
+
+if (nextLedgerPeriodBtn) {
+  nextLedgerPeriodBtn.addEventListener("click", () => {
+    if (currentPeriod === "monthly") {
+      currentLedgerPeriodDate.setMonth(currentLedgerPeriodDate.getMonth() + 1);
+    } else if (currentPeriod === "weekly") {
+      currentLedgerPeriodDate.setDate(currentLedgerPeriodDate.getDate() + 7);
+    }
+    setDatesByPeriod(currentPeriod, currentLedgerPeriodDate);
+    loadLedgerDataForPeriod();
+  });
+}
+
+if (!filter.DATE_FROM || !filter.DATE_TO) {
+  setDatesByPeriod("monthly", currentLedgerPeriodDate);
+  if (ledgerPeriodSelect) ledgerPeriodSelect.value = "monthly";
+  if (ledgerPeriodNavigation) ledgerPeriodNavigation.style.display = "flex";
+} else {
+  if (ledgerDateFrom && filter.DATE_FROM)
+    ledgerDateFrom.valueAsDate = filter.DATE_FROM;
+  if (ledgerDateTo && filter.DATE_TO) ledgerDateTo.valueAsDate = filter.DATE_TO;
+  if (ledgerPeriodSelect) {
+    ledgerPeriodSelect.value = "custom";
+    if (customDateFields) customDateFields.style.display = "flex";
+    if (ledgerPeriodNavigation) ledgerPeriodNavigation.style.display = "none";
+  }
+}
+
 if (ledgerDateFrom) {
-  ledgerDateFrom.valueAsDate = filter.DATE_FROM;
   ledgerDateFrom.addEventListener("change", (e) => {
     if (e.target.value) {
       filter.DATE_FROM = new Date(e.target.value);
@@ -41,7 +134,6 @@ if (ledgerDateFrom) {
 }
 
 if (ledgerDateTo) {
-  ledgerDateTo.valueAsDate = filter.DATE_TO;
   ledgerDateTo.addEventListener("change", (e) => {
     if (e.target.value) {
       filter.DATE_TO = new Date(e.target.value);
@@ -92,6 +184,14 @@ async function loadLedgerDataForPeriod() {
   const transactionListExpense = document.getElementById(expenseListId);
 
   if (!transactionListIncome || !transactionListExpense) return;
+  // if (
+  //   typeof selectedAccount === "undefined" ||
+  //   !selectedAccount ||
+  //   !selectedAccount.ACCOUNT_NAME
+  // )
+  //   return;
+  if (!filter.DATE_FROM || !filter.DATE_TO) return;
+
   if (incomeState.isLoading || expenseState.isLoading) return;
 
   incomeState.isLoading = true;

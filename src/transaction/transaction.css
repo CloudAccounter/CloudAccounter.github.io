@@ -63,7 +63,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin-bottom: 5vh;
+  /* margin-bottom: 5vh; */
 }
 
 .incrementButton {
@@ -77,7 +77,7 @@
 }
 
 .transaction-date {
-  font-size: 18px;
+  font-size: 10px;
   padding: 5px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
   border-width: 0px;
