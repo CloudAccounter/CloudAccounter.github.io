@@ -1,4 +1,4 @@
-defaultTransaction = { ...getNewDateTime() };
+defaultTransaction = {...getNewDateTime()};
 datePicker = document.getElementById("datePicker");
 prevButton = document.getElementById("prevDate");
 nextButton = document.getElementById("nextDate");
@@ -15,13 +15,16 @@ isEndOfData = false;
 currentOffset = 0;
 // Function to load transaction data
 
-
 async function loadTransactionData(TYPE) {
   const transactionList = document.getElementById("transaction-list");
+  if (!transactionList) return;
   if (TYPE !== "FORCE" && (isLoading || isEndOfData)) return;
-  if (TYPE === "FORCE") {transactionList.innerHTML = ""; currentOffset = 0;}
+  if (TYPE === "FORCE") {
+    transactionList.innerHTML = "";
+    currentOffset = 0;
+  }
   isLoading = true;
-  const { DATE } = filter;
+  const {DATE} = filter;
 
   transactionData = [];
   const SHEET_ID = JSON.parse(localStorage.getItem("user"))?.id;
@@ -32,9 +35,9 @@ async function loadTransactionData(TYPE) {
     QUERY =
       QUERY +
       ` AND G='${selectedAccount?.ACCOUNT_NAME}' OR H='${selectedAccount?.ACCOUNT_NAME}'`;
-  } 
+  }
   // else {
-    // QUERY = QUERY + ` AND E = date '${formatDateToYYYYMMDD(DATE)}'`;
+  // QUERY = QUERY + ` AND E = date '${formatDateToYYYYMMDD(DATE)}'`;
   // }
   QUERY = QUERY + ` AND (L IS NULL OR L != 1) ORDER BY E DESC, F DESC`;
   QUERY += ` LIMIT ${pageSize} OFFSET ${currentOffset}`;
@@ -73,12 +76,13 @@ window.addEventListener("scroll", () => {
 
 function renderTransactions(transactionData) {
   const transactionList = document.getElementById("transaction-list");
+  if (!transactionList) return;
   if (currentOffset === 0) transactionList.innerHTML = "";
   if (transactionData?.length) {
     transactionData.forEach((transaction) => {
       const transactionItem = document.createElement("div");
       transactionItem.onclick = function () {
-        selectedTransaction = { ...transaction };
+        selectedTransaction = {...transaction};
         loadPage(`add${capitalizeFirstLetter(transaction?.CATEGORY)}`);
       };
       transactionItem.classList.add("transaction-item");

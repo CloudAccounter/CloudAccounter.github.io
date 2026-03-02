@@ -4,15 +4,15 @@ const mainRoutes = {
     head: [
       {
         tag: "link",
-        props: [{ href: "src/login/login.css" }, { rel: "stylesheet" }],
+        props: [{href: "src/login/login.css"}, {rel: "stylesheet"}],
       },
     ],
     tail: [
       {
         tag: "script",
         props: [
-          { type: "text/javascript" },
-          { src: "src/utility-functions/google-sheet-api.js" },
+          {type: "text/javascript"},
+          {src: "src/utility-functions/google-sheet-api.js"},
         ],
       },
     ],
@@ -22,16 +22,13 @@ const mainRoutes = {
     head: [
       {
         tag: "link",
-        props: [{ href: "src/dashboard/dashboard.css" }, { rel: "stylesheet" }],
+        props: [{href: "src/dashboard/dashboard.css"}, {rel: "stylesheet"}],
       },
     ],
     tail: [
       {
         tag: "script",
-        props: [
-          { type: "text/javascript" },
-          { src: "src/dashboard/dashboard.js" },
-        ],
+        props: [{type: "text/javascript"}, {src: "src/dashboard/dashboard.js"}],
       },
     ],
   },
@@ -40,18 +37,15 @@ const mainRoutes = {
     head: [
       {
         tag: "link",
-        props: [
-          { href: "src/transaction/transaction.css" },
-          { rel: "stylesheet" },
-        ],
+        props: [{href: "src/transaction/transaction.css"}, {rel: "stylesheet"}],
       },
     ],
     tail: [
       {
         tag: "script",
         props: [
-          { type: "text/javascript" },
-          { src: "src/transaction/transaction.js" },
+          {type: "text/javascript"},
+          {src: "src/transaction/transaction.js"},
         ],
       },
     ],
@@ -61,15 +55,15 @@ const mainRoutes = {
     head: [
       {
         tag: "link",
-        props: [{ href: "src/forms/forms.css" }, { rel: "stylesheet" }],
+        props: [{href: "src/forms/forms.css"}, {rel: "stylesheet"}],
       },
     ],
     tail: [
       {
         tag: "script",
         props: [
-          { type: "text/javascript" },
-          { src: "src/forms/addExpense/addExpense.js" },
+          {type: "text/javascript"},
+          {src: "src/forms/addExpense/addExpense.js"},
         ],
       },
     ],
@@ -79,15 +73,15 @@ const mainRoutes = {
     head: [
       {
         tag: "link",
-        props: [{ href: "src/forms/forms.css" }, { rel: "stylesheet" }],
+        props: [{href: "src/forms/forms.css"}, {rel: "stylesheet"}],
       },
     ],
     tail: [
       {
         tag: "script",
         props: [
-          { type: "text/javascript" },
-          { src: "src/forms/addExpense/addExpense.js" },
+          {type: "text/javascript"},
+          {src: "src/forms/addExpense/addExpense.js"},
         ],
       },
     ],
@@ -97,15 +91,15 @@ const mainRoutes = {
     head: [
       {
         tag: "link",
-        props: [{ href: "src/forms/forms.css" }, { rel: "stylesheet" }],
+        props: [{href: "src/forms/forms.css"}, {rel: "stylesheet"}],
       },
     ],
     tail: [
       {
         tag: "script",
         props: [
-          { type: "text/javascript" },
-          { src: "src/forms/addExpense/addExpense.js" },
+          {type: "text/javascript"},
+          {src: "src/forms/addExpense/addExpense.js"},
         ],
       },
     ],
@@ -115,15 +109,51 @@ const mainRoutes = {
     head: [
       {
         tag: "link",
-        props: [{ href: "src/forms/forms.css" }, { rel: "stylesheet" }],
+        props: [{href: "src/forms/forms.css"}, {rel: "stylesheet"}],
       },
     ],
     tail: [
       {
         tag: "script",
         props: [
-          { type: "text/javascript" },
-          { src: "src/forms/addAccount/addAccount.js" },
+          {type: "text/javascript"},
+          {src: "src/forms/addAccount/addAccount.js"},
+        ],
+      },
+    ],
+  },
+  addLedger: {
+    pages: [["src/forms/addLedger/addLedger.html", "main-content"]],
+    head: [
+      {
+        tag: "link",
+        props: [{href: "src/forms/forms.css"}, {rel: "stylesheet"}],
+      },
+    ],
+    tail: [
+      {
+        tag: "script",
+        props: [
+          {type: "text/javascript"},
+          {src: "src/forms/addLedger/addLedger.js"},
+        ],
+      },
+    ],
+  },
+  ledgerDashboard: {
+    pages: [["src/ledgerDashboard/ledgerDashboard.html", "main-content"]],
+    head: [
+      {
+        tag: "link",
+        props: [{href: "src/dashboard/dashboard.css"}, {rel: "stylesheet"}],
+      },
+    ],
+    tail: [
+      {
+        tag: "script",
+        props: [
+          {type: "text/javascript"},
+          {src: "src/ledgerDashboard/ledgerDashboard.js"},
         ],
       },
     ],

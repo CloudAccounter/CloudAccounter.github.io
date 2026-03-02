@@ -1,5 +1,5 @@
 defaultTransaction = {...getNewDateTime()};
-let isSubmitting = false;
+var isSubmitting = false;
 
 function formSubmit(formData) {
   const formID = JSON.parse(localStorage.getItem("user"))?.TRANSACTIONS_FORM;
@@ -165,8 +165,12 @@ async function loadAccountData() {
     accountList?.push(accountObject);
     return "";
   });
+  const formTitle = document.querySelector("h1")?.innerText;
+
   const accountOptionsElement = document.getElementById("account");
+  console.log("===", accountList);
   accountList.forEach((acc) => {
+    if (acc?.ACCOUNT_TYPE === "LEDGER") return;
     const accountOption = document.createElement("option");
     accountOption.value = `${acc?.ACCOUNT_NAME}`;
     accountOption.innerHTML = `${acc?.ACCOUNT_NAME}`;
@@ -175,6 +179,11 @@ async function loadAccountData() {
 
   const accountToOptionsElement = document.getElementById("account_to");
   accountList.forEach((acc) => {
+    if (
+      (formTitle === "Add Income" || formTitle === "Add Expense") &&
+      acc?.ACCOUNT_TYPE !== "LEDGER"
+    )
+      return;
     const accountOption = document.createElement("option");
     accountOption.value = `${acc?.ACCOUNT_NAME}`;
     accountOption.innerHTML = `${acc?.ACCOUNT_NAME}`;

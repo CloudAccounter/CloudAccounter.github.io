@@ -1,7 +1,5 @@
-// logOutCheck();
-
-// Function to load account data
-async function loadAccountData() {
+// Function to load ledger account data
+async function loadLedgerAccountData() {
   accountData = [];
   const SHEET_ID = JSON.parse(localStorage.getItem("user"))?.id;
   const GID = JSON.parse(localStorage.getItem("user"))?.SP_ACC_BALANCES;
@@ -18,13 +16,17 @@ async function loadAccountData() {
     return "";
   });
 
+  const ledgerAccounts = accountData.filter(
+    (account) => account.ACCOUNT_TYPE === "LEDGER",
+  );
+
   const uniqueTypes = [
-    ...new Set(accountData.map((account) => account.ACCOUNT_TYPE)),
-  ].filter((type) => type !== "LEDGER");
-  const accountList = document.getElementById("account-balances");
+    ...new Set(ledgerAccounts.map((account) => account.ACCOUNT_TYPE)),
+  ];
+  const accountList = document.getElementById("ledger-account-balances");
   accountList.innerHTML = "";
   uniqueTypes.forEach((type) => {
-    const totalBalance = accountData
+    const totalBalance = ledgerAccounts
       ?.filter((account) => account?.ACCOUNT_TYPE === type)
       .reduce((sum, account) => sum + account?.BALANCE, 0);
     const accountHeader = document.createElement("div");
@@ -34,7 +36,7 @@ async function loadAccountData() {
             <span class="balance">${formatNumber(totalBalance) || 0}</span>
         `;
     const accountItems = document.createElement("div");
-    accountData
+    ledgerAccounts
       ?.filter((account) => account?.ACCOUNT_TYPE === type)
       ?.forEach((account) => {
         const accountItem = document.createElement("div");
@@ -54,4 +56,4 @@ async function loadAccountData() {
   });
 }
 
-loadAccountData();
+loadLedgerAccountData();
