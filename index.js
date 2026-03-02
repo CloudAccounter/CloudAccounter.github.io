@@ -87,15 +87,15 @@ function loginCheck() {
     loadPage("login");
   } else {
     document.getElementById("side-menu").classList.remove("hide");
-    const lastPage = localStorage.getItem("lastPage") || "dashboard"; // Default to 'dashboard'
+    const lastPage = localStorage.getItem("lastPage") || "ledgerDashboard"; // Default to 'ledgerDashboard'
     if (mainRoutes?.[lastPage]) {
       if (lastPage === "login") {
-        loadPage("dashboard"); // Fallback if lastPage is invalid
+        loadPage("ledgerDashboard"); // Fallback if lastPage is invalid
       } else {
         loadPage(lastPage);
       }
     } else {
-      loadPage("dashboard"); // Fallback if lastPage is invalid
+      loadPage("ledgerDashboard"); // Fallback if lastPage is invalid
     }
   }
 }
@@ -129,7 +129,7 @@ function goBack() {
     if (mainRoutes?.[previousPage]) {
       loadPage(previousPage, "main-content");
     } else {
-      loadPage("dashboard", "main-content"); // Fallback if the previous page is invalid
+      loadPage("ledgerDashboard", "main-content"); // Fallback if the previous page is invalid
     }
   } else {
     console.log("No previous page in history.");
