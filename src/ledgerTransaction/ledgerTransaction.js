@@ -1,13 +1,13 @@
-let currentTab = "income";
+currentTab = "income";
 
-let incomeState = {
+incomeState = {
   data: [],
   offset: 0,
   isEndOfData: false,
   isLoading: false,
 };
 
-let expenseState = {
+expenseState = {
   data: [],
   offset: 0,
   isEndOfData: false,
