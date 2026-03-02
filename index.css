@@ -49,7 +49,9 @@ html {
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: color 0.3s ease, transform 0.2s ease;
+  transition:
+    color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .navbar .icon-button:hover {
@@ -109,105 +111,174 @@ html {
   display: block;
 }
 
-/* Styling the button container */
+/* Premium Global App Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); */
+  /* margin: -5px -5px 0px -5px; */
+   /* Offset body margin for full width header */
+  /* border-radius: 0 0 16px 16px; */
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  flex: 1; /* Keep things balanced */
+}
+
+.header-left {
+  justify-content: flex-start;
+}
+
+.header-right {
+  justify-content: flex-end;
+}
+
+.header-center {
+  flex: 1;
+  text-align: center;
+}
+
+.header-center .logo img {
+  vertical-align: middle;
+  transition: transform 0.3s ease;
+}
+
+.header-center .logo:hover img {
+  transform: scale(1.05);
+}
+
+/* Side Menu Options Button */
 .options-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
-  /* background-color: #f5f5f5; */
-  /* border: 1px solid #ddd; */
-  border-radius: 1vh;
+  padding: 12px;
+  border-radius: 12px;
   cursor: pointer;
-  /* position: absolute;
-    right: 10px;
-    top: 10px; */
-  width: fit-content;
-  /* transition: background-color 0.3s ease, box-shadow 0.3s ease; */
+  background-color: #f8f9fa;
+  transition: all 0.2s ease;
+  position: relative; /* For dropdown positioning */
 }
 
-/* Hover and active styles */
 .options-button:hover {
-  /* background-color: #eaeaea; */
-  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+  background-color: #e2e8f0;
 }
 
 .options-button:active {
-  background-color: #ddd;
+  transform: scale(0.95);
 }
 
-/* Styling the three dots */
+.options-button .dots {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .options-button .dot {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background-color: #333;
-  margin: 1px 0;
+  background-color: #495057;
 }
 
-/* Vertical alignment of dots */
-.options-button .dots {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 3px;
-  /* Spacing between dots */
-}
-
-/* Dropdown menu styling (hidden by default) */
+/* Elegant Dropdown Menu */
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 80px;
-  right: 0;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 1vh;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  top: calc(100% + 10px);
+  left: 0; /* Align left */
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
   text-align: left;
-  width: 30vh;
+  min-width: 220px;
+  overflow: hidden;
+  border: 1px solid #f1f3f5;
+  animation: fadeInDown 0.2s ease-out forwards;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dropdown-menu.active {
   display: block;
 }
 
-/* Dropdown menu items */
-.dropdown-menu a {
-  display: block;
-  padding: 10px 15px;
-  color: #333;
-  text-decoration: none;
-  font-size: 14px;
-  transition: background-color 0.2s ease;
-}
-
-.dropdown-menu a:hover {
-  background-color: #f5f5f5;
-}
-
 .tabButton {
-  padding: 1vh 2vh;
-  margin: 0 1vh;
+  width: 100%;
+  padding: 14px 20px;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s;
-  background: transparent;
-  font-size: 2.5vh;
-  width: 90%;
-  background-color: white;
+  background-color: transparent;
   text-align: left;
-  margin-right: 1vh;
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.tabButton.active {
-  color: #0056b3;
+.tabButton i {
+  font-size: 14px;
 }
 
 .tabButton:hover {
-  color: #0056b3;
+  background-color: #f8f9fa;
+  color: #4a71e8;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #f1f3f5;
+  margin: 4px 0;
+}
+
+.logout-btn:hover {
+  color: #dc3545;
+  background-color: #fff5f5;
+}
+
+/* Back Button */
+.back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+  background-color: #e2e8f0;
+  color: #1a1b25;
+}
+
+.back-btn i {
+  font-size: 16px;
 }
 
 /* Responsive Design */

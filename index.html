@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="padding: 0px; margin: 0px">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -66,76 +66,58 @@
     />
   </head>
 
-  <body>
-    <div
-      style="
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        direction: rtl;
-        text-align: center;
-        align-items: center;
-      "
-    >
-      <div id="side-menu" class="options-button" onclick="toggleDropdown()">
-        <div class="dots">
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-        </div>
-        <div class="dropdown-menu" id="dropdown">
-          <!-- <button onclick="loadPage('dashboard')" class="tabButton">
-            Accounts
-          </button>
-          <button onclick="loadPage('ledgerDashboard')" class="tabButton">
-            Ledgers
-          </button> -->
-          <button
-            onclick="
-              loadPage('transaction');
-              selectedAccount = {};
-            "
-            class="tabButton"
-          >
-            All Transactions
-          </button>
-          <!-- <button
-            onclick="
-              loadPage('ledgerTransaction');
-              selectedAccount = {};
-            "
-            class="tabButton"
-          >
-            Ledger Transactions
-          </button> -->
-          <button onclick="loadPage('addExpense')" class="tabButton">
-            Add Expense
-          </button>
-          <button onclick="loadPage('addIncome')" class="tabButton">
-            Add Income
-          </button>
-          <button onclick="loadPage('addTransfer')" class="tabButton">
-            Transfer
-          </button>
-          <button onclick="logout()" class="tabButton">Log Out</button>
+  <body style="margin: 0px; padding: 0px">
+    <!-- Premium Global Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <div id="side-menu" class="options-button" onclick="toggleDropdown()">
+          <div class="dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+          <div class="dropdown-menu" id="dropdown">
+            <button
+              onclick="
+                loadPage('transaction');
+                selectedAccount = {};
+              "
+              class="tabButton"
+            >
+              <i class="fas fa-list fa-fw"></i> All Transactions
+            </button>
+            <button onclick="loadPage('addExpense')" class="tabButton">
+              <i class="fas fa-arrow-up fa-fw" style="color: #dc3545"></i> Add
+              Expense
+            </button>
+            <button onclick="loadPage('addIncome')" class="tabButton">
+              <i class="fas fa-arrow-down fa-fw" style="color: #28a745"></i> Add
+              Income
+            </button>
+            <button onclick="loadPage('addTransfer')" class="tabButton">
+              <i class="fas fa-exchange-alt fa-fw" style="color: #007bff"></i>
+              Transfer
+            </button>
+            <div class="dropdown-divider"></div>
+            <button onclick="logout()" class="tabButton logout-btn">
+              <i class="fas fa-sign-out-alt fa-fw"></i> Log Out
+            </button>
+          </div>
         </div>
       </div>
-      <a onclick="loadPage('ledgerSummary')" class="logo"
-        ><img
-          src="src/img/logo.png"
-          alt="logo"
-          width="50px"
-          style="vertical-align: bottom"
-      /></a>
-      <a
-        style="text-align: left; padding-left: 20px; cursor: pointer"
-        onclick="goBack()"
-      >
-        <i
-          class="fa-solid fa-arrow-left"
-          style="font-size: 24px; color: #333"
-        ></i>
-      </a>
-    </div>
+
+      <div class="header-center">
+        <a onclick="loadPage('ledgerSummary')" class="logo">
+          <img src="src/img/logo.png" alt="logo" width="40px" />
+        </a>
+      </div>
+
+      <div class="header-right">
+        <a class="back-btn" onclick="goBack()" title="Go Back">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+      </div>
+    </header>
     <div class="main-content" id="main-content"></div>
     <div id="login"></div>
     <script type="text/javascript" src="data.js"></script>

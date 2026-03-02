@@ -6,8 +6,25 @@
     </div>
   </header>
 
-  <!-- Quick Actions: Add Account & Add Ledger -->
-  <div class="two-col-grid" style="margin-bottom: 20px">
+  <!-- Accounts List -->
+  <section class="widget-card">
+    <!-- <div class="widget-header">
+      <h3><i class="fas fa-users account-icon-header"></i> Ledger Accounts</h3>
+      <div class="dots"><i class="fas fa-ellipsis-h"></i></div>
+    </div> -->
+    <div class="accounts-list" id="ledger-account-balances">
+      <!-- Generated via JS -->
+      <div
+        style="text-align: center; color: #999; font-size: 14px; padding: 20px"
+      >
+        <i class="fas fa-spinner fa-spin"></i> Loading accounts...
+      </div>
+    </div>
+  </section>
+
+
+    <!-- Quick Actions: Add Account & Add Ledger -->
+  <div class="two-col-grid" >
     <!-- Add Account Card -->
     <section
       class="widget-card"
@@ -112,22 +129,5 @@
       </p>
     </section>
   </div>
-
-  <!-- Accounts List -->
-  <section class="widget-card">
-    <!-- <div class="widget-header">
-      <h3><i class="fas fa-users account-icon-header"></i> Ledger Accounts</h3>
-      <div class="dots"><i class="fas fa-ellipsis-h"></i></div>
-    </div> -->
-    <div class="accounts-list" id="ledger-account-balances">
-      <!-- Generated via JS -->
-      <div
-        style="text-align: center; color: #999; font-size: 14px; padding: 20px"
-      >
-        <i class="fas fa-spinner fa-spin"></i> Loading accounts...
-      </div>
-    </div>
-  </section>
-
   <div style="height: 80px"></div>
 </div>
