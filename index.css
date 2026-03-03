@@ -121,6 +121,7 @@ html {
   position: sticky;
   top: 0;
   z-index: 1000;
+  direction: rtl;
   /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); */
   /* margin: -5px -5px 0px -5px; */
    /* Offset body margin for full width header */
@@ -195,7 +196,7 @@ html {
   display: none;
   position: absolute;
   top: calc(100% + 10px);
-  left: 0; /* Align left */
+  right: 0; /* Align left */
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
