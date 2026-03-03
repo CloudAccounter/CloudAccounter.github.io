@@ -168,7 +168,7 @@ function updateLedgerTitle() {
   const titleEl = document.getElementById("ledger-title");
   if (titleEl) {
     if (selectedAccount && selectedAccount.ACCOUNT_NAME) {
-      titleEl.innerText = `${selectedAccount.ACCOUNT_NAME} - Ledger`;
+      titleEl.innerText = `${selectedAccount.ACCOUNT_NAME} - ${selectedAccount.ACCOUNT_TYPE}`;
     } else {
       titleEl.innerText = `Ledger Transactions`;
     }
@@ -205,7 +205,7 @@ async function loadLedgerDataForPeriod() {
   const SHEET_ID = JSON.parse(localStorage.getItem("user"))?.id;
   const GID = JSON.parse(localStorage.getItem("user"))?.VW_TRANSACTIONS;
 
-  let QUERY = `SELECT * WHERE (I = 'income' OR I = 'expense')`;
+  let QUERY = `SELECT * WHERE 1=1`; // WHERE (I = 'income' OR I = 'expense')
 
   if (selectedAccount && selectedAccount.ACCOUNT_NAME) {
     QUERY += ` AND (G='${selectedAccount.ACCOUNT_NAME}' OR H='${selectedAccount.ACCOUNT_NAME}')`;
@@ -249,6 +249,14 @@ async function loadLedgerDataForPeriod() {
           } else if (transactionObject.CATEGORY === "expense") {
             expenseState.data.push(transactionObject);
             totalExpense += Number(transactionObject.AMOUNT || 0);
+          } else if (transactionObject.CATEGORY === "transfer") {
+            if (transactionObject.ACCOUNT === selectedAccount.ACCOUNT_NAME) {
+              expenseState.data.push(transactionObject);
+              totalExpense += Number(transactionObject.AMOUNT || 0);
+            } else {
+              incomeState.data.push(transactionObject);
+              totalIncome += Number(transactionObject.AMOUNT || 0);
+            }
           }
         });
       }
@@ -305,15 +313,22 @@ function renderLedgerTransactions(transactionData, listId, clearList = false) {
     transactionData.forEach((transaction) => {
       const isIncome = transaction?.CATEGORY === "income";
       const catInfo = txIconMap[transaction?.CATEGORY] || txIconMap["expense"];
-      const sign = isIncome ? "+" : "-";
-      const amountClass = isIncome ? "tx-amount-green" : "tx-amount-red";
+      let sign = isIncome ? "+" : "-";
+      let amountClass = isIncome ? "tx-amount-green" : "tx-amount-red";
 
-      let title = transaction?.ACCOUNT || "Transaction";
-      if (transaction?.TO) {
-        title = `${transaction?.ACCOUNT} to ${transaction?.TO}`;
-      } else if (transaction?.DESCRIPTION) {
-        title = transaction?.DESCRIPTION;
+      if (transaction?.CATEGORY === "transfer" && transaction?.ACCOUNT === selectedAccount.ACCOUNT_NAME ) {
+        sign = "-";
+        amountClass = "tx-amount-red";
+      } else if (transaction?.CATEGORY === "transfer" && transaction?.TO === selectedAccount.ACCOUNT_NAME) {
+        sign = "+";
+        amountClass = "tx-amount-green";
       }
+
+      let accountInfo = transaction?.ACCOUNT || "--";
+      if (transaction?.CATEGORY === "transfer") {
+        accountInfo = `${transaction?.ACCOUNT} to ${transaction?.TO}`;
+      }
+      let title = transaction?.DESCRIPTION || "Transaction";
 
       let niceDate = "";
       if (
@@ -337,10 +352,11 @@ function renderLedgerTransactions(transactionData, listId, clearList = false) {
           </div>
           <div class="tx-details-dash">
             <span class="tx-title">${title}</span>
+            <span class="tx-date" style="font-size: 12px; color: #6c757d;">${accountInfo}</span>
             <span class="tx-date" style="font-size: 12px; color: #6c757d;">${niceDate}</span>
           </div>
           <div style="text-align: right;">
-            <strong class="${amountClass}" style="display: block; font-size: 12px; margin-bottom: 2px;">${sign}₹${formatNumber(transaction?.AMOUNT)}</strong>
+            <span class="${amountClass}" style="display: block; font-size: 12px; margin-bottom: 2px;">${sign}₹${formatNumber(transaction?.AMOUNT)}</span>
             <span style="font-size: 12px; color: #adb5bd;">${formatCustomTime(transaction?.TIME) || ""}</span>
           </div>
       `;

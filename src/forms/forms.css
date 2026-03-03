@@ -1,8 +1,8 @@
 /* Form Styles supplementing Dashboard UI */
 .dashboard-wrapper {
-  padding: 20px;
+  /* padding: 20px; */
   background-color: #f8f9fa;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   padding-bottom: 80px;
 }
 

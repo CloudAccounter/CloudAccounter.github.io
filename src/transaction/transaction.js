@@ -2,6 +2,7 @@ defaultTransaction = {...getNewDateTime()};
 datePicker = document.getElementById("datePicker");
 prevButton = document.getElementById("prevDate");
 nextButton = document.getElementById("nextDate");
+// selectedAccount = {};
 
 filter.DATE = today;
 datePicker.valueAsDate = filter.DATE;
@@ -17,6 +18,9 @@ currentOffset = 0;
 
 async function loadTransactionData(TYPE) {
   const transactionList = document.getElementById("transaction-list");
+  selectedAccount?.ACCOUNT_NAME &&
+    (document.getElementById("transaction-title").innerText =
+      `${selectedAccount?.ACCOUNT_NAME} Transactions`);
   if (!transactionList) return;
   if (TYPE !== "FORCE" && (isLoading || isEndOfData)) return;
   if (TYPE === "FORCE") {
@@ -95,14 +99,20 @@ function renderTransactions(transactionData) {
       if (isTransfer) {
         sign = "";
         amountClass = "tx-amount-blue";
+        if (transaction?.ACCOUNT === selectedAccount?.ACCOUNT_NAME) {
+          sign = "-";
+          amountClass = "tx-amount-red";
+        } else if (transaction?.TO === selectedAccount?.ACCOUNT_NAME) {
+          sign = "+";
+          amountClass = "tx-amount-green";
+        }
       }
 
-      let title = transaction?.ACCOUNT || "Transaction";
-      if (transaction?.TO) {
-        title = `${transaction?.ACCOUNT} to ${transaction?.TO}`;
-      } else if (transaction?.DESCRIPTION) {
-        title = transaction?.DESCRIPTION;
+      let accountInfo = transaction?.ACCOUNT || "--";
+      if (transaction?.CATEGORY === "transfer") {
+        accountInfo = `${transaction?.ACCOUNT} to ${transaction?.TO}`;
       }
+      let title = transaction?.DESCRIPTION || "Transaction";
 
       let niceDate = "";
       if (
@@ -126,10 +136,11 @@ function renderTransactions(transactionData) {
           </div>
           <div class="tx-details-dash">
             <span class="tx-title">${title}</span>
+            <span class="tx-date" style="font-size: 12px; color: #6c757d;">${accountInfo}</span>
             <span class="tx-date" style="font-size: 12px; color: #6c757d;">${niceDate}</span>
           </div>
           <div style="text-align: right;">
-            <strong class="${amountClass}" style="display: block; font-size: 12px; margin-bottom: 2px;">${sign}₹${formatNumber(transaction?.AMOUNT)}</strong>
+            <span class="${amountClass}" style="display: block; font-size: 12px; margin-bottom: 2px;">${sign}₹${formatNumber(transaction?.AMOUNT)}</span>
             <span style="font-size: 12px; color: #adb5bd;">${formatCustomTime(transaction?.TIME) || ""}</span>
           </div>
       `;

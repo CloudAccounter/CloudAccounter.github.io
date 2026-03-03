@@ -1,5 +1,7 @@
 // Function to load ledger account data
 async function loadLedgerAccountData() {
+  selectedAccount = {};
+  localStorage.removeItem("selectedAccount");
   accountData = [];
   const SHEET_ID = JSON.parse(localStorage.getItem("user"))?.id;
   const GID = JSON.parse(localStorage.getItem("user"))?.SP_ACC_BALANCES;

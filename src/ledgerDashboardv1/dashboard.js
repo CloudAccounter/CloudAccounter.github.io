@@ -56,8 +56,7 @@ async function loadDashboardData() {
       filteredAccounts = accountData.filter(
         (acc) => acc.ACCOUNT_NAME === selectedAccount.ACCOUNT_NAME,
       );
-      document.querySelector(".greeting").textContent =
-        "Good Morning, " + selectedAccount.ACCOUNT_NAME;
+      document.querySelector(".greeting").textContent += ' ' + selectedAccount.ACCOUNT_NAME;
     } else {
       // Fallback if no ledger selected
       filteredAccounts = accountData.filter(
