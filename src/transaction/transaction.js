@@ -72,7 +72,7 @@ async function loadTransactionData(TYPE) {
 
 window.addEventListener("scroll", () => {
   const nearBottom =
-    window.innerHeight + window.scrollY >= document.body.offsetHeight + 50;
+    window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
   if (nearBottom) {
     loadTransactionData();
   }

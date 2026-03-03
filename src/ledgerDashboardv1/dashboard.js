@@ -56,7 +56,8 @@ async function loadDashboardData() {
       filteredAccounts = accountData.filter(
         (acc) => acc.ACCOUNT_NAME === selectedAccount.ACCOUNT_NAME,
       );
-      document.querySelector(".greeting").textContent += ' ' + selectedAccount.ACCOUNT_NAME;
+      document.querySelector(".greeting").textContent +=
+        " " + selectedAccount.ACCOUNT_NAME;
     } else {
       // Fallback if no ledger selected
       filteredAccounts = accountData.filter(
@@ -288,13 +289,11 @@ async function loadDashboardData() {
         sign = "";
         amountClass = "tx-amount-blue";
       }
-
-      let title = tx.ACCOUNT || "Transaction";
-      if (tx.TO) {
-        title = `${tx.ACCOUNT} to ${tx.TO}`;
-      } else if (tx.DESCRIPTION) {
-        title = tx.DESCRIPTION;
+      let accountInfo = tx?.ACCOUNT || "--";
+      if (tx?.CATEGORY === "transfer") {
+        accountInfo = `${tx?.ACCOUNT} to ${tx?.TO}`;
       }
+      let title = tx.DESCRIPTION || "Transaction";
 
       /* Format specific string date */
       let niceDate = "";
@@ -315,6 +314,7 @@ async function loadDashboardData() {
           </div>
           <div class="tx-details-dash">
             <span class="tx-title">${title}</span>
+            <span class="tx-date">${accountInfo}</span>
             <span class="tx-date">${niceDate}</span>
           </div>
           <strong class="${amountClass}">${sign}₹${formatNumber(tx.AMOUNT)}</strong>
