@@ -4,12 +4,16 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "start": "http-server -p 4455"
+    "start": "http-server -p 4455",
+    "build": "rm -rf www && mkdir -p www && cp -r index.html index.css index.js data.js main-routes.js src www/"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@capacitor/android": "^8.4.0",
+    "@capacitor/cli": "^8.4.0",
+    "@capacitor/core": "^8.4.0",
     "http-server": "^14.1.1"
   }
 }

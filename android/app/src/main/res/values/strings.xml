@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">CloudAccounter</string>
+    <string name="title_activity_main">CloudAccounter</string>
+    <string name="package_name">com.cloudaccounter.app</string>
+    <string name="custom_url_scheme">com.cloudaccounter.app</string>
+</resources>

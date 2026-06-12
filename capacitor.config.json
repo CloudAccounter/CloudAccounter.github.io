@@ -1,0 +1,11 @@
+{
+  "appId": "com.cloudaccounter.app",
+  "appName": "CloudAccounter",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": true
+  }
+}
