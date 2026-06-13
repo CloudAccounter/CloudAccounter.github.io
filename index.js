@@ -148,3 +148,24 @@ document.addEventListener("click", function (event) {
     dropdown.classList.remove("active");
   }
 });
+
+// Capacitor: Handle Android hardware back button
+// Navigate within the app instead of exiting
+document.addEventListener("backbutton", function (e) {
+  e.preventDefault();
+  if (pageHistory.length > 1) {
+    goBack();
+  }
+});
+
+// Also handle via Capacitor App plugin if available
+if (window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App) {
+  window.Capacitor.Plugins.App.addListener("backButton", function (data) {
+    if (pageHistory.length > 1) {
+      goBack();
+    } else {
+      // On the root page — minimize the app instead of exiting
+      window.Capacitor.Plugins.App.minimizeApp();
+    }
+  });
+}
